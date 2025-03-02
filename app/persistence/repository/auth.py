@@ -37,9 +37,6 @@ async def create_user(body: UserSchema, db: AsyncSession) -> User:
     new_user = User(**body.model_dump())
     db.add(new_user)
 
-    # num_users = await db.execute(select(func.count(User.id)))
-    # num_users = num_users.scalar()
-
     await db.commit()
     await db.refresh(new_user)
     return new_user
