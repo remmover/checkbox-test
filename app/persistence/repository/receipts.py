@@ -161,33 +161,3 @@ async def fetch_receipt_by_id_public(db: AsyncSession, receipt_id: UUID) -> Rece
     if not receipt:
         raise HTTPException(status_code=404, detail=messages.RECEIPT_NOT_EXIST)
     return receipt
-
-
-async def update_receipt_with_file_paths(
-    db: AsyncSession,
-    receipt: Receipt,
-    text_filepath: str,
-    qr_filepath: str
-) -> Receipt:
-    """
-    Update a receipt with new file paths for text and QR code.
-
-    Args:
-        db (AsyncSession): The async database session dependency.
-        receipt (Receipt): The receipt model instance to be updated.
-        text_filepath (str): The path to the generated text file.
-        qr_filepath (str): The path to the generated QR code file.
-
-    Returns:
-        Receipt: The updated receipt after committing to the database.
-
-    Raises:
-        SQLAlchemyError: If an error occurs while committing the update to the database.
-        Exception: For any unexpected errors that might occur during the update process.
-    """
-    receipt.text_file_path = text_filepath
-    receipt.qr_file_path = qr_filepath
-    db.add(receipt)
-    await db.commit()
-    await db.refresh(receipt)
-    return receipt

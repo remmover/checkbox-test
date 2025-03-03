@@ -19,19 +19,11 @@ from app.service.logger import logger
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """
-    Initializes resources during startup and handles cleanup (if any).
 
-    Args:
-        app (FastAPI): The FastAPI application instance.
-
-    Yields:
-        None: This function yields control back to the application, allowing
-        any additional startup tasks to complete.
-
-    Raises:
-        redis.exceptions.RedisError: If there is a problem connecting to Redis.
-        Exception: For any other issues that might occur during initialization.
+    :param app:
+    :return:
     """
+
     logger.info("Starting up application and initializing Redis...")
 
     try:

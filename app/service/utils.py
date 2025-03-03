@@ -8,7 +8,7 @@ from fastapi import HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.persistence.models import PaymentType, Receipt
-from app.persistence.repository.receipts import update_receipt_with_file_paths, fetch_receipt_by_id_public
+from app.persistence.repository.receipts import fetch_receipt_by_id_public
 from app.service import messages
 from app.service.shemas import CalculatedProduct, ReceiptCreateSchema, ReceiptResponseOut, ReceiptItemResponse
 
@@ -200,8 +200,7 @@ def build_receipt_response_out(receipt: Receipt) -> ReceiptResponseOut:
 async def prepare_receipt_files(
     db: AsyncSession,
     receipt_id: UUID,
-    line_length: int,
-    download: bool
+    line_length: int
 ) -> Tuple[str, str]:
     """
     Fetches a receipt by its public ID. If the corresponding text/QR code files
@@ -211,7 +210,6 @@ async def prepare_receipt_files(
         db (AsyncSession): The async database session.
         receipt_id (UUID): The public identifier of the receipt.
         line_length (int): Number of characters per line when generating the text file.
-        download (bool): Value for qr if False u can scan and see receipt if True download after scan
 
     Returns:
         Tuple[str, str]: A tuple containing (text_path, qr_path).
@@ -225,57 +223,39 @@ async def prepare_receipt_files(
     if not receipt:
         raise HTTPException(status_code=404, detail=messages.RECEIPT_NOT_EXIST)
 
-    text_path = getattr(receipt, "text_file_path", None)
-    qr_path = getattr(receipt, "qr_file_path", None)
+    # Generate receipt text
+    receipt_text = generate_receipt_text(receipt, line_length)
 
-    # If the files do not exist yet, generate them
-    if not text_path or not qr_path:
-        # Generate receipt text
-        receipt_text = generate_receipt_text(receipt, line_length)
+    # Create directories if they don't exist
+    os.makedirs(TEXT_RECEIPT_DIR, exist_ok=True)
+    os.makedirs(QR_CODE_DIR, exist_ok=True)
 
-        # Create directories if they don't exist
-        os.makedirs(TEXT_RECEIPT_DIR, exist_ok=True)
-        os.makedirs(QR_CODE_DIR, exist_ok=True)
+    # Build file paths
+    text_filename = f"{receipt.id}.txt"
+    text_filepath = os.path.join(TEXT_RECEIPT_DIR, text_filename)
 
-        # Build file paths
-        text_filename = f"{receipt.id}.txt"
-        text_filepath = os.path.join(TEXT_RECEIPT_DIR, text_filename)
+    qr_filename = f"{receipt.id}.png"
+    qr_filepath = os.path.join(QR_CODE_DIR, qr_filename)
 
-        qr_filename = f"{receipt.id}.png"
-        qr_filepath = os.path.join(QR_CODE_DIR, qr_filename)
+    try:
+        # Create the text file
+        with open(text_filepath, "w", encoding="utf-8") as f:
+            f.write(receipt_text)
+    except IOError as io_err:
+        raise io_err
+    try:
+        # Create the QR code
+        txt_url = (
+            f"http://0.0.0.0:8000/receipt/public/{receipt_id}/download?file_type=txt&line_length=40"
+        )
+        generate_qr_code(txt_url, qr_filepath)
+    except Exception as gen_err:
+        # Cleanup partial text file if needed
+        if os.path.exists(text_filepath):
+            os.remove(text_filepath)
+        raise gen_err
 
-        try:
-            # Create the text file
-            with open(text_filepath, "w", encoding="utf-8") as f:
-                f.write(receipt_text)
-        except IOError as io_err:
-            # If something goes wrong, rollback before raising
-            raise io_err
-        print(download)
-        try:
-            # Create the QR code
-            txt_download_url = (
-                f"http://0.0.0.0:8000/receipt/public/{receipt_id}/download?file_type=txt&line_length=40&download={download}"
-            )
-            generate_qr_code(txt_download_url, qr_filepath)
-        except Exception as gen_err:
-            # Cleanup partial text file if needed, then rollback
-            if os.path.exists(text_filepath):
-                os.remove(text_filepath)
-            raise gen_err
-
-        # Update DB with file paths
-        try:
-            receipt = await update_receipt_with_file_paths(db, receipt, text_filepath, qr_filepath)
-        except Exception as db_err:
-            # Remove partially created files if DB update fails
-            if os.path.exists(text_filepath):
-                os.remove(text_filepath)
-            if os.path.exists(qr_filepath):
-                os.remove(qr_filepath)
-            raise db_err
-
-        text_path = receipt.text_file_path
-        qr_path = receipt.qr_file_path
+    text_path = text_filepath
+    qr_path = qr_filepath
 
     return text_path, qr_path

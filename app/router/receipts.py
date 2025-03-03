@@ -42,7 +42,7 @@ async def create_receipt(
         HTTPException:
             - Various HTTPExceptions if database or validation errors occur at a lower level.
             - 500: For any other unexpected error during receipt creation.
-        Exception: Reraised after rollback if an unexpected error occurs.
+        Exception: Reraised if an unexpected error occurs.
     """
     try:
         calculated_products, total_sum, rest = calculate_receipt_details(receipt_request)
@@ -109,7 +109,7 @@ async def list_receipts(
         HTTPException:
             - Various HTTPExceptions if database or validation errors occur at a lower level.
             - 500: For any other unexpected error during receipt retrieval.
-        Exception: Reraised after rollback if an unexpected error occurs.
+        Exception: Reraised if an unexpected error occurs.
     """
     try:
         receipts = await fetch_receipts(
@@ -158,7 +158,7 @@ async def get_receipt(
             - 404: If the receipt is not found.
             - Various other HTTPExceptions if database errors occur.
             - 500: For any other unexpected error during receipt retrieval.
-        Exception: Reraised after rollback if an unexpected error occurs.
+        Exception: Reraised if an unexpected error occurs.
     """
     try:
         receipt = await fetch_receipt_by_id(db=db, user_id=current_user.id, receipt_id=receipt_id)
@@ -184,7 +184,7 @@ async def download_receipt_file(
     receipt_id: UUID,
     file_type: str = Query(..., description="Either 'txt' or 'qr'"),
     line_length: int = Query(40, gt=0, description="Number of characters per line"),
-    download: bool = Query(True, description="If true, force download; if false, view inline"),
+    # download: bool = Query(True, description="If true, force download; if false, view inline"),
     db: AsyncSession = Depends(get_db),
 ):
     """
@@ -196,7 +196,6 @@ async def download_receipt_file(
         receipt_id (UUID): The unique identifier of the public receipt.
         file_type (str): Specifies which file to download ('txt' or 'qr').
         line_length (int): Number of characters per line in the generated text file.
-        download (bool): Whether to download,
         db (AsyncSession): The database session dependency.
 
     Returns:
@@ -208,7 +207,7 @@ async def download_receipt_file(
             - 404: If the requested file is not found on the server after generation.
             - Various other HTTPExceptions if database errors occur.
             - 500: For any unexpected error during file preparation or retrieval.
-        Exception: Reraised after rollback if an unexpected error occurs.
+        Exception: Reraised if an unexpected error occurs.
 
     """
     try:
@@ -216,7 +215,7 @@ async def download_receipt_file(
             raise HTTPException(status_code=400, detail=messages.FILE_TYPE_ERROR)
 
         # 1. Prepare the files (fetch or generate if missing)
-        text_path, qr_path = await prepare_receipt_files(db, receipt_id, line_length, download)
+        text_path, qr_path = await prepare_receipt_files(db, receipt_id, line_length)
 
         # 2. Return the requested file
         file_path = text_path if file_type == "txt" else qr_path
@@ -228,8 +227,7 @@ async def download_receipt_file(
                 detail=f"{file_type.upper()} file not found on server"
             )
 
-        disposition_type = "attachment" if download else "inline"
-        content_disposition = f"{disposition_type}; filename={os.path.basename(file_path)}"
+        content_disposition = f"inline; filename={os.path.basename(file_path)}"
 
         return FileResponse(
             path=file_path,
