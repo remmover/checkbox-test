@@ -1,19 +1,22 @@
+import os
 from datetime import datetime
 from decimal import Decimal
 from typing import Optional, List
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, Query, HTTPException
+from fastapi.responses import FileResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 from starlette import status
 
 from app.persistence.connect import get_db
 from app.persistence.models import User, PaymentType
-from app.persistence.repository.receipts import create_receipt_in_db, fetch_receipts, fetch_receipt_by_id
+from app.persistence.repository.receipts import create_receipt_in_db, fetch_receipts, fetch_receipt_by_id, \
+    fetch_receipt_by_id_public
 from app.service.auth import auth_service
-from app.service.shemas import ReceiptResponse, ReceiptCreateRequest, ReceiptListResponse, ReceiptResponseOut, \
-    ReceiptItemResponse
-from app.service.utils import calculate_receipt_details
+from app.service.shemas import ReceiptResponse, ReceiptCreateRequest, ReceiptResponseOut, ReceiptItemResponse
+from app.service.utils import calculate_receipt_details, generate_receipt_text, TEXT_RECEIPT_DIR, BASE_URL, QR_CODE_DIR, \
+    generate_qr_code
 
 router = APIRouter(prefix="/receipt", tags=["receipt"])
 
@@ -130,3 +133,77 @@ async def get_receipt(
         "created_at": receipt.created_at,
     }
     return response_data
+
+
+@router.get("/public/receipt/{receipt_id}/download")
+async def download_receipt_file(
+    receipt_id: UUID,
+    file_type: str = Query(..., description="Either 'txt' or 'qr'"),
+    line_length: int = Query(40, gt=0, description="Number of characters per line"),
+    db: AsyncSession = Depends(get_db),
+):
+    """
+    Public endpoint that returns either the receipt text file or the QR code image,
+    based on the 'file_type' query parameter. If necessary, it generates the files
+    and saves them locally, then returns them via FileResponse.
+    """
+    if file_type not in ("txt", "qr"):
+        raise HTTPException(status_code=400, detail="file_type must be 'txt' or 'qr'")
+
+    # Fetch the receipt
+    receipt = await fetch_receipt_by_id_public(db, receipt_id)
+
+    # Check if the text or QR file paths are already stored in DB
+    # Suppose our model has fields .text_file_path and .qr_file_path
+    text_path = getattr(receipt, "text_file_path", None)
+    qr_path = getattr(receipt, "qr_file_path", None)
+
+    # If either file is missing, we generate them
+    if not text_path or not qr_path:
+        # Generate text
+        receipt_text = generate_receipt_text(receipt, line_length)
+        text_filename = f"{receipt.id}.txt"
+        text_filepath = os.path.join(TEXT_RECEIPT_DIR, text_filename)
+
+        with open(text_filepath, "w", encoding="utf-8") as f:
+            f.write(receipt_text)
+
+        # For the QR code, let's assume it encodes the text file's path or some URL
+        qr_filename = f"{receipt.id}.png"
+        qr_filepath = os.path.join(QR_CODE_DIR, qr_filename)
+
+        # If you want the QR code to point to a local URL that serves the .txt, or any URL:
+        # e.g., "http://localhost:8000/public/receipt/<id>/download?file_type=txt"
+        # We'll create a direct link to the above route with the relevant param
+        # For local usage or dev environment:
+        txt_download_url = f"http://localhost:8000/public/receipt/{receipt.id}/download?file_type=txt"
+        generate_qr_code(txt_download_url, qr_filepath)
+
+        # Update DB fields
+        receipt.text_file_path = text_filepath
+        receipt.qr_file_path = qr_filepath
+        db.add(receipt)
+        await db.commit()
+        await db.refresh(receipt)
+
+        # Assign local variables so we can use them below
+        text_path = text_filepath
+        qr_path = qr_filepath
+
+    # Return the requested file
+    if file_type == "txt":
+        if not os.path.isfile(text_path):
+            raise HTTPException(status_code=404, detail="Text file not found on server")
+        return FileResponse(
+            path=text_path,
+            media_type="text/plain",
+            filename=os.path.basename(text_path),
+        )
+    else:
+        if not os.path.isfile(qr_path):
+            raise HTTPException(status_code=404, detail="QR file not found on server")
+        return FileResponse(
+            path=qr_path,
+            media_type="image/png",
+            filename=os.path.basename(qr_path),
+        )

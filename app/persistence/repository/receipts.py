@@ -3,6 +3,7 @@ from decimal import Decimal
 from typing import Tuple, List, Optional
 from uuid import UUID
 
+from fastapi import HTTPException
 from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
@@ -84,3 +85,15 @@ async def fetch_receipt_by_id(
     )
     result = await db.execute(query)
     return result.scalar_one_or_none()
+
+
+async def fetch_receipt_by_id_public(db: AsyncSession, receipt_id: UUID) -> Receipt:
+    """
+    Fetch a receipt by its ID without requiring authentication.
+    """
+    query = select(Receipt).options(selectinload(Receipt.items)).where(Receipt.id == receipt_id)
+    result = await db.execute(query)
+    receipt = result.scalar_one_or_none()
+    if not receipt:
+        raise HTTPException(status_code=404, detail="Receipt not found")
+    return receipt

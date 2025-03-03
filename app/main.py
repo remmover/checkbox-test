@@ -1,9 +1,12 @@
+import os
+
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 from starlette import status
 from starlette.middleware.cors import CORSMiddleware
 from fastapi_limiter import FastAPILimiter
+from fastapi.staticfiles import StaticFiles
 import redis.asyncio as redis
 
 from app.persistence.connect import get_db
@@ -22,6 +25,16 @@ app.add_middleware(
 
 app.include_router(auth.router)
 app.include_router(receipts.router)
+STATIC_DIR = "/app/static"
+
+# Check that the directory exists
+if not os.path.isdir(STATIC_DIR):
+    os.makedirs(STATIC_DIR, exist_ok=True)
+
+# Mount /app/static at /static so that
+# /app/static/qr/some_qr.png → http://localhost:8000/static/qr/some_qr.png
+app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+
 
 @app.on_event("startup")
 async def startup():

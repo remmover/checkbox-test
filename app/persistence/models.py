@@ -48,7 +48,8 @@ class Receipt(Base):
     total_amount: Mapped[Decimal] = mapped_column(Numeric(10, 2), nullable=False)
     paid_amount: Mapped[Decimal] = mapped_column(Numeric(10, 2), nullable=True)
     created_at: Mapped[date] = mapped_column("created_at", DateTime, default=func.now())
-
+    text_receipt_url: Mapped[str] = mapped_column(String(250), nullable=True)
+    qr_code_url: Mapped[str] = mapped_column(String(250), nullable=True)
     user: Mapped["User"] = relationship("User", back_populates="receipts")
 
     items: Mapped[List["ReceiptItem"]] = relationship(
