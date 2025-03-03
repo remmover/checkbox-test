@@ -12,12 +12,6 @@ from app.persistence.repository.receipts import update_receipt_with_file_paths, 
 from app.service import messages
 from app.service.shemas import CalculatedProduct, ReceiptCreateSchema, ReceiptResponseOut, ReceiptItemResponse
 
-BASE_URL = "http://localhost:8000"
-TEXT_RECEIPT_DIR = "static/receipts"
-QR_CODE_DIR = "static/qr"
-os.makedirs(TEXT_RECEIPT_DIR, exist_ok=True)
-os.makedirs(QR_CODE_DIR, exist_ok=True)
-
 TEXT_RECEIPT_DIR = "/app/static/text_receipts"
 QR_CODE_DIR = "/app/static/qr_codes"
 
@@ -206,7 +200,8 @@ def build_receipt_response_out(receipt: Receipt) -> ReceiptResponseOut:
 async def prepare_receipt_files(
     db: AsyncSession,
     receipt_id: UUID,
-    line_length: int
+    line_length: int,
+    download: bool
 ) -> Tuple[str, str]:
     """
     Fetches a receipt by its public ID. If the corresponding text/QR code files
@@ -216,6 +211,7 @@ async def prepare_receipt_files(
         db (AsyncSession): The async database session.
         receipt_id (UUID): The public identifier of the receipt.
         line_length (int): Number of characters per line when generating the text file.
+        download (bool): Value for qr if False u can scan and see receipt if True download after scan
 
     Returns:
         Tuple[str, str]: A tuple containing (text_path, qr_path).
@@ -255,11 +251,11 @@ async def prepare_receipt_files(
         except IOError as io_err:
             # If something goes wrong, rollback before raising
             raise io_err
-
+        print(download)
         try:
             # Create the QR code
             txt_download_url = (
-                f"http://localhost:8000/public/receipt/{receipt.id}/download?file_type=txt"
+                f"http://0.0.0.0:8000/receipt/public/{receipt_id}/download?file_type=txt&line_length=40&download={download}"
             )
             generate_qr_code(txt_download_url, qr_filepath)
         except Exception as gen_err:
@@ -283,4 +279,3 @@ async def prepare_receipt_files(
         qr_path = receipt.qr_file_path
 
     return text_path, qr_path
-

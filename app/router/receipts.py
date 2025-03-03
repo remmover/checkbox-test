@@ -184,6 +184,7 @@ async def download_receipt_file(
     receipt_id: UUID,
     file_type: str = Query(..., description="Either 'txt' or 'qr'"),
     line_length: int = Query(40, gt=0, description="Number of characters per line"),
+    download: bool = Query(True, description="If true, force download; if false, view inline"),
     db: AsyncSession = Depends(get_db),
 ):
     """
@@ -195,6 +196,7 @@ async def download_receipt_file(
         receipt_id (UUID): The unique identifier of the public receipt.
         file_type (str): Specifies which file to download ('txt' or 'qr').
         line_length (int): Number of characters per line in the generated text file.
+        download (bool): Whether to download,
         db (AsyncSession): The database session dependency.
 
     Returns:
@@ -207,13 +209,14 @@ async def download_receipt_file(
             - Various other HTTPExceptions if database errors occur.
             - 500: For any unexpected error during file preparation or retrieval.
         Exception: Reraised after rollback if an unexpected error occurs.
+
     """
     try:
         if file_type not in ("txt", "qr"):
             raise HTTPException(status_code=400, detail=messages.FILE_TYPE_ERROR)
 
         # 1. Prepare the files (fetch or generate if missing)
-        text_path, qr_path = await prepare_receipt_files(db, receipt_id, line_length)
+        text_path, qr_path = await prepare_receipt_files(db, receipt_id, line_length, download)
 
         # 2. Return the requested file
         file_path = text_path if file_type == "txt" else qr_path
@@ -225,10 +228,13 @@ async def download_receipt_file(
                 detail=f"{file_type.upper()} file not found on server"
             )
 
+        disposition_type = "attachment" if download else "inline"
+        content_disposition = f"{disposition_type}; filename={os.path.basename(file_path)}"
+
         return FileResponse(
             path=file_path,
             media_type=media_type,
-            filename=os.path.basename(file_path),
+            headers={"Content-Disposition": content_disposition},
         )
 
     except HTTPException as http_err:
