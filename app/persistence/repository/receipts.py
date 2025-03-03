@@ -1,10 +1,10 @@
 from datetime import datetime
 from decimal import Decimal
-from typing import Tuple, List, Optional
+from typing import List, Optional
 from uuid import UUID
 
 from fastapi import HTTPException
-from sqlalchemy import select, func
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
@@ -18,9 +18,6 @@ async def create_receipt_in_db(
     total_sum: Decimal,
     db: AsyncSession
 ) -> Receipt:
-    """
-    Save the receipt and its associated items into the database.
-    """
     new_receipt = Receipt(
         user_id=current_user.id,
         payment_type=PaymentType(receipt_request.payment.type),
@@ -54,9 +51,6 @@ async def fetch_receipts(
     limit: int = 10,
     offset: int = 0,
 ) -> List[Receipt]:
-    """
-    Fetch receipts from the database applying filters and pagination.
-    """
     query = select(Receipt).options(selectinload(Receipt.items)).where(
         Receipt.user_id == user_id
     )
@@ -88,9 +82,6 @@ async def fetch_receipt_by_id(
 
 
 async def fetch_receipt_by_id_public(db: AsyncSession, receipt_id: UUID) -> Receipt:
-    """
-    Fetch a receipt by its ID without requiring authentication.
-    """
     query = select(Receipt).options(selectinload(Receipt.items)).where(Receipt.id == receipt_id)
     result = await db.execute(query)
     receipt = result.scalar_one_or_none()

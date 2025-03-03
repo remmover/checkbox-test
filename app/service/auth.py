@@ -2,7 +2,7 @@ import pickle
 from typing import Optional
 
 import redis
-from jose import JWTError, jwt  # noqa
+from jose import JWTError, jwt
 from fastapi import HTTPException, status, Depends
 from fastapi.security import OAuth2PasswordBearer
 from passlib.context import CryptContext
@@ -16,8 +16,6 @@ from app.service.config import config
 
 
 class Auth:
-    """Class to handle authentication-related operations."""
-
     pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
     SECRET_KEY = config.secret_key
     ALGORITHM = config.algorithm
@@ -30,27 +28,14 @@ class Auth:
     )
 
     def verify_password(self, plain_password, hashed_password):
-        """Class to handle authentication-related operations."""
         return self.pwd_context.verify(plain_password, hashed_password)
 
     def get_password_hash(self, password: str):
-        """Generate a hashed password from a plain password."""
         return self.pwd_context.hash(password)
 
     async def create_access_token(
         self, data: dict, expires_delta: Optional[float] = None
     ):
-        """
-        Create an access token.
-
-        Args:
-            data (dict): Data to be encoded in the token.
-            expires_delta (Optional[float], optional): Expiry time
-            in seconds. Defaults to None.
-
-        Returns:
-            str: Encoded access token.
-        """
         to_encode = data.copy()
         if expires_delta:
             expire = datetime.utcnow() + timedelta(seconds=expires_delta)
@@ -67,17 +52,6 @@ class Auth:
     async def create_refresh_token(
         self, data: dict, expires_delta: Optional[float] = None
     ):
-        """
-        Create a refresh token.
-
-        Args:
-            data (dict): Data to be encoded in the token.
-            expires_delta (Optional[float], optional): Expiry time in
-            seconds. Defaults to None.
-
-        Returns:
-            str: Encoded refresh token.
-        """
         to_encode = data.copy()
         if expires_delta:
             expire = datetime.utcnow() + timedelta(seconds=expires_delta)
@@ -92,15 +66,6 @@ class Auth:
         return encoded_refresh_token
 
     async def get_login_from_token(self, token: str):
-        """
-        Decode and retrieve the login from an login confirmation token.
-
-        Args:
-            token (str): Login confirmation token.
-
-        Returns:
-            str: Decoded login.
-        """
         try:
             payload = jwt.decode(token, self.SECRET_KEY, algorithms=[self.ALGORITHM])
             login = payload["sub"]
@@ -113,16 +78,6 @@ class Auth:
             )
 
     async def decode_refresh_token(self, refresh_token: str):
-        """
-        Decode and retrieve the login from a refresh token.
-
-        Args:
-            refresh_token (str): Refresh token.
-
-        Returns:
-            str: Decoded login.
-        """
-
         try:
             payload = jwt.decode(
                 refresh_token, self.SECRET_KEY, algorithms=[self.ALGORITHM]
@@ -143,17 +98,6 @@ class Auth:
     async def get_current_user(
         self, token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_db)
     ):
-        """
-        Get the current authenticated user.
-
-        Args:
-            token (str, optional): Access token. Defaults to Depends(oauth2_scheme).
-            db (AsyncSession, optional): Async database session. Defaults
-            to Depends(get_db).
-
-        Returns:
-            User: The authenticated user.
-        """
         credentials_exception = HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail=messages.VALIDATE_CREDENTIALS,
