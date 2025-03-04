@@ -83,7 +83,7 @@ const _displayItem = (item, searchTerms, highlightTerms) => {
     requestUrl = contentRoot + dirname;
     linkUrl = requestUrl;
   } else {
-    // normal docs builders
+    // normal html builders
     requestUrl = contentRoot + docName + docFileSuffix;
     linkUrl = docName + docLinkSuffix;
   }
@@ -184,7 +184,7 @@ const Search = {
   _pulse_status: -1,
 
   htmlToText: (htmlString, anchor) => {
-    const htmlElement = new DOMParser().parseFromString(htmlString, 'text/docs');
+    const htmlElement = new DOMParser().parseFromString(htmlString, 'text/html');
     for (const removalQuery of [".headerlink", "script", "style"]) {
       htmlElement.querySelectorAll(removalQuery).forEach((el) => { el.remove() });
     }
