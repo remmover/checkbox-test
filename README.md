@@ -74,7 +74,7 @@ This command will run the tests and display the results in the terminal.
 
 ## Additional Information
 
-Documentation for the routes and most functions is available at [https://remmover.github.io/checkbox-test/](https://remmover.github.io/checkbox-test/). For a more enhanced view of the documentation, it is recommended to navigate directly to the repository's documentation at `.docs/html/index.html`.
+Documentation for the routes and most functions is available at [https://remmover.github.io/checkbox-test/](https://remmover.github.io/checkbox-test/). For a more enhanced view of the documentation, it is recommended to navigate directly to the repository's documentation at `.docs/index.html`.
 
 For more detailed information and advanced configurations, please refer to the project's documentation or inspect the source code in this repository.
 
