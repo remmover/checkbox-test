@@ -175,7 +175,7 @@ async def get_receipt(
 
 
 @router.get("/public/{receipt_id}/view")
-async def download_receipt_file(
+async def public_receipt(
     receipt_id: UUID,
     file_type: str = Query(..., description="Either 'txt' or 'qr'"),
     line_length: int = Query(40, gt=0, description="Number of characters per line"),
