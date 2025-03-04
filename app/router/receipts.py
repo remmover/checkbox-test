@@ -40,7 +40,7 @@ async def create_receipt(
     :rtype: ReceiptResponse
     :raises HTTPException: If database or validation errors occur.
     :raises Exception: For any unexpected error during receipt creation.
-
+    
     Note: If the payment type is "card", the 'amount' can be set to 0, as card payment automatically processes
           the total amount indicated.
     """
