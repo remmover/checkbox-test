@@ -5,7 +5,6 @@ from datetime import datetime
 
 from pydantic import BaseModel, Field, ConfigDict, model_validator, field_validator
 
-
 from app.service import messages
 from app.service.logger import logger
 
@@ -18,10 +17,12 @@ class UserSchema(BaseModel):
     """
     Schema for creating or updating a user.
 
-    Attributes:
-        name (str): The user's name (length between 5 and 16).
-        login (str): The user's username/login.
-        password (str): The user's password (length between 6 and 10).
+    :ivar name: The user's name (length between 5 and 16).
+    :vartype name: str
+    :ivar login: The user's username/login.
+    :vartype login: str
+    :ivar password: The user's password (length between 6 and 10).
+    :vartype password: str
     """
     name: str = Field(min_length=5, max_length=16)
     login: str
@@ -30,11 +31,12 @@ class UserSchema(BaseModel):
 
 class UserResponseSchema(BaseModel):
     """
-    Response schema with basic user info.
+    Response schema with basic user information.
 
-    Attributes:
-        id (UUID): The unique identifier of the user.
-        login (str): The user's username/login.
+    :ivar id: The unique identifier of the user.
+    :vartype id: UUID
+    :ivar login: The user's username/login.
+    :vartype login: str
     """
     id: UUID
     login: str
@@ -46,10 +48,12 @@ class TokenModel(BaseModel):
     """
     Model containing authentication tokens.
 
-    Attributes:
-        access_token (str): The access token string.
-        refresh_token (str): The refresh token string.
-        token_type (str): The token type, defaults to 'bearer'.
+    :ivar access_token: The access token string.
+    :vartype access_token: str
+    :ivar refresh_token: The refresh token string.
+    :vartype refresh_token: str
+    :ivar token_type: The token type, defaults to 'bearer'.
+    :vartype token_type: str
     """
     access_token: str
     refresh_token: str
@@ -62,7 +66,14 @@ class TokenModel(BaseModel):
 
 class ProductBase(BaseModel):
     """
-    Base model describing a product. Used to avoid duplication.
+    Base model describing a product to avoid duplication.
+
+    :ivar name: The name of the product.
+    :vartype name: str
+    :ivar price: The price of the product.
+    :vartype price: Decimal
+    :ivar quantity: The quantity of the product.
+    :vartype quantity: int
     """
     name: str
     price: Decimal
@@ -72,7 +83,7 @@ class ProductBase(BaseModel):
 class ProductItem(ProductBase):
     """
     A product item inherited from ProductBase, kept for backward compatibility
-    or further extension.
+    or for further extension.
     """
     # Inherits name, price, quantity directly from ProductBase
     pass
@@ -81,19 +92,24 @@ class ProductItem(ProductBase):
 class CalculatedProduct(ProductBase):
     """
     A product with a computed 'total' field (price * quantity).
+
+    :ivar total: The computed total for the product.
+    :vartype total: Decimal
     """
     total: Decimal
 
 
 class ReceiptItemResponse(BaseModel):
     """
-    Simplified model for displaying an item within a receipt,
-    using different field names from the base product for clarity.
+    Simplified model for displaying an item within a receipt, using different field
+    names from the base product for clarity.
 
-    Attributes:
-        product_name (str): The name of the product.
-        unit_price (Decimal): The unit price of the product.
-        quantity (int): The quantity of the product purchased.
+    :ivar product_name: The name of the product.
+    :vartype product_name: str
+    :ivar unit_price: The unit price of the product.
+    :vartype unit_price: Decimal
+    :ivar quantity: The quantity of the product purchased.
+    :vartype quantity: int
     """
     product_name: str
     unit_price: Decimal
@@ -111,9 +127,10 @@ class PaymentData(BaseModel):
     """
     Payment details for a transaction.
 
-    Attributes:
-        type (str): The type of payment, must be either 'cash' or 'card'.
-        amount (Optional[Decimal]): Required if payment type is 'cash'.
+    :ivar type: The type of payment; must be either 'cash' or 'card'.
+    :vartype type: str
+    :ivar amount: The payment amount; required if the payment type is 'cash'.
+    :vartype amount: Optional[Decimal]
     """
     type: str
     amount: Optional[Decimal] = None
@@ -122,10 +139,13 @@ class PaymentData(BaseModel):
     @classmethod
     def validate_type(cls, v):
         """
-        Validates the payment type (only 'cash' or 'card' are allowed).
+        Validates the payment type to ensure it is either 'cash' or 'card'.
 
-        Raises:
-            ValueError: If the payment type is invalid.
+        :param v: The payment type value.
+        :type v: str
+        :raises ValueError: If the payment type is invalid.
+        :return: The validated payment type.
+        :rtype: str
         """
         logger.debug("Validating payment type: %s", v)
         if v not in ("cash", "card"):
@@ -136,10 +156,11 @@ class PaymentData(BaseModel):
     @model_validator(mode="after")
     def check_cash_amount(self):
         """
-        Validates that `amount` is provided if `type` is 'cash'.
+        Validates that an amount is provided when the payment type is 'cash'.
 
-        Raises:
-            ValueError: If payment type is 'cash' but `amount` is None.
+        :raises ValueError: If payment type is 'cash' but `amount` is None.
+        :return: The validated PaymentData instance.
+        :rtype: PaymentData
         """
         if self.type == "cash" and self.amount is None:
             logger.error(messages.AMOUNT_REQUIRED_FOR_CASH)
@@ -155,9 +176,10 @@ class ReceiptCreateSchema(BaseModel):
     """
     Schema for creating a new receipt.
 
-    Attributes:
-        products (List[ProductItem]): List of product items in the receipt.
-        payment (PaymentData): Payment information for this receipt.
+    :ivar products: List of product items included in the receipt.
+    :vartype products: List[ProductItem]
+    :ivar payment: Payment information for this receipt.
+    :vartype payment: PaymentData
     """
     products: List[ProductItem]
     payment: PaymentData
@@ -171,13 +193,18 @@ class ReceiptResponse(BaseModel):
     """
     Detailed information about a receipt.
 
-    Attributes:
-        id (UUID): Unique identifier of the receipt.
-        products (List[CalculatedProduct]): List of products with calculated totals.
-        payment (PaymentData): Payment info for this receipt.
-        total (Decimal): Total amount for the receipt.
-        rest (Decimal): Remaining balance after payment.
-        created_at (datetime): Timestamp when the receipt was created.
+    :ivar id: Unique identifier of the receipt.
+    :vartype id: UUID
+    :ivar products: List of products with calculated totals.
+    :vartype products: List[CalculatedProduct]
+    :ivar payment: Payment information for this receipt.
+    :vartype payment: PaymentData
+    :ivar total: Total amount for the receipt.
+    :vartype total: Decimal
+    :ivar rest: Remaining balance after payment.
+    :vartype rest: Decimal
+    :ivar created_at: Timestamp when the receipt was created.
+    :vartype created_at: datetime
     """
     id: UUID
     products: List[CalculatedProduct]
@@ -189,11 +216,12 @@ class ReceiptResponse(BaseModel):
 
 class ReceiptListResponse(BaseModel):
     """
-    Response containing a list of receipts, typically for pagination or batch retrieval.
+    Response containing a list of receipts, typically used for pagination or batch retrieval.
 
-    Attributes:
-        receipts (List[ReceiptResponse]): The list of receipts.
-        total (int): The total count of receipts.
+    :ivar receipts: The list of receipt details.
+    :vartype receipts: List[ReceiptResponse]
+    :ivar total: The total count of receipts.
+    :vartype total: int
     """
     receipts: List[ReceiptResponse]
     total: int
@@ -201,16 +229,22 @@ class ReceiptListResponse(BaseModel):
 
 class ReceiptResponseOut(BaseModel):
     """
-    Simplified response schema for a receipt, using a different product representation.
+    Simplified response schema for a receipt, utilizing a different product representation.
 
-    Attributes:
-        id (UUID): Unique identifier of the receipt.
-        products (List[ReceiptItemResponse]): A list of items in the receipt.
-        payment_type (str): Type of payment (e.g., 'cash', 'card').
-        total (Decimal): The total amount for the receipt.
-        paid_amount (Optional[Decimal]): The actual amount paid, if applicable.
-        rest (Decimal): Remaining balance after payment.
-        created_at (datetime): When the receipt was created.
+    :ivar id: Unique identifier of the receipt.
+    :vartype id: UUID
+    :ivar products: A list of items in the receipt.
+    :vartype products: List[ReceiptItemResponse]
+    :ivar payment_type: Type of payment (e.g., 'cash', 'card').
+    :vartype payment_type: str
+    :ivar total: Total amount for the receipt.
+    :vartype total: Decimal
+    :ivar paid_amount: The actual amount paid, if applicable.
+    :vartype paid_amount: Optional[Decimal]
+    :ivar rest: Remaining balance after payment.
+    :vartype rest: Decimal
+    :ivar created_at: Timestamp when the receipt was created.
+    :vartype created_at: datetime
     """
     id: UUID
     products: List[ReceiptItemResponse]

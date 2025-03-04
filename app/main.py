@@ -19,11 +19,16 @@ from app.service.logger import logger
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """
+    Manage the application's lifespan events for startup and shutdown.
 
-    :param app:
-    :return:
+    This context manager initializes external resources (such as Redis and FastAPILimiter)
+    during application startup and yields control to the application. Any exceptions during
+    initialization are logged and re-raised.
+
+    :param app: The FastAPI application instance.
+    :type app: FastAPI
+    :yields: None
     """
-
     logger.info("Starting up application and initializing Redis...")
 
     try:
@@ -62,26 +67,23 @@ app.add_middleware(
 app.include_router(auth.router)
 app.include_router(receipts.router)
 
-STATIC_DIR = "/app/static"
-if not os.path.isdir(STATIC_DIR):
-    os.makedirs(STATIC_DIR, exist_ok=True)
-
-app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+# STATIC_DIR = "/app/static"
+# if not os.path.isdir(STATIC_DIR):
+#     os.makedirs(STATIC_DIR, exist_ok=True)
+#
+# app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 
 @app.get("/health/db")
 async def check_db_connection(db: AsyncSession = Depends(get_db)) -> dict[str, str]:
     """
-    Checks the database connection by executing a simple SQL query.
+    Check the database connection by executing a simple SQL query.
 
-    Args:
-        db (AsyncSession): The asynchronous database session dependency.
-
-    Returns:
-        dict[str, str]: A dictionary containing the status of the database connection.
-
-    Raises:
-        HTTPException: If the database cannot be reached or returns an unexpected result.
+    :param db: The asynchronous database session dependency.
+    :type db: AsyncSession
+    :return: A dictionary containing the status of the database connection.
+    :rtype: dict[str, str]
+    :raises HTTPException: If the database cannot be reached or returns an unexpected result.
     """
     logger.info("Checking database connection health...")
     try:
@@ -103,13 +105,10 @@ async def check_db_connection(db: AsyncSession = Depends(get_db)) -> dict[str, s
 @app.get("/")
 def read_root() -> dict[str, str]:
     """
-    A basic root endpoint for testing service availability.
+    Root endpoint for testing service availability.
 
-    Returns:
-        dict[str, str]: A simple greeting/message.
-
-    Raises:
-        None: This endpoint does not raise any errors explicitly.
+    :return: A dictionary with a greeting message.
+    :rtype: dict[str, str]
     """
     logger.info("Root endpoint accessed.")
     return {"message": "This is a test task for Checkbox!"}

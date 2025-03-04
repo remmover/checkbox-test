@@ -15,7 +15,7 @@ from app.persistence.repository.receipts import create_receipt_in_db, fetch_rece
 from app.service import messages
 from app.service.auth import auth_service
 from app.service.logger import logger
-from app.service.shemas import ReceiptResponse, ReceiptCreateSchema, ReceiptResponseOut
+from app.service.schemas import ReceiptResponse, ReceiptCreateSchema, ReceiptResponseOut
 from app.service.utils import calculate_receipt_details, prepare_receipt_files, build_receipt_response_out
 
 router = APIRouter(prefix="/receipt", tags=["Receipt"])
@@ -30,19 +30,16 @@ async def create_receipt(
     """
     Create a new receipt in the database using the provided schema data.
 
-    Args:
-        receipt_request (ReceiptCreateSchema): The data required to create a new receipt.
-        current_user (User): The current authenticated user (injected by FastAPI).
-        db (AsyncSession): The database session dependency.
-
-    Returns:
-        ReceiptResponse: A response object containing information about the newly created receipt.
-
-    Raises:
-        HTTPException:
-            - Various HTTPExceptions if database or validation errors occur at a lower level.
-            - 500: For any other unexpected error during receipt creation.
-        Exception: Reraised if an unexpected error occurs.
+    :param receipt_request: The data required to create a new receipt.
+    :type receipt_request: ReceiptCreateSchema
+    :param current_user: The current authenticated user.
+    :type current_user: User
+    :param db: The database session dependency.
+    :type db: AsyncSession
+    :return: A response object containing information about the newly created receipt.
+    :rtype: ReceiptResponse
+    :raises HTTPException: If database or validation errors occur.
+    :raises Exception: For any unexpected error during receipt creation.
     """
     try:
         calculated_products, total_sum, rest = calculate_receipt_details(receipt_request)
@@ -92,24 +89,26 @@ async def list_receipts(
     """
     List receipts belonging to the current user, with optional filters.
 
-    Args:
-        start_date (Optional[datetime]): Filter for receipts created on or after this date.
-        end_date (Optional[datetime]): Filter for receipts created on or before this date.
-        min_total (Optional[Decimal]): Filter for receipts with a total greater than or equal to this value.
-        payment_type (Optional[str]): Filter for receipts based on payment type ('cash' or 'card').
-        limit (int): Maximum number of receipts to return. Defaults to 10.
-        offset (int): Number of receipts to skip for pagination. Defaults to 0.
-        current_user (User): The current authenticated user (injected by FastAPI).
-        db (AsyncSession): The database session dependency.
-
-    Returns:
-        List[ReceiptResponseOut]: A list of receipts matching the given filters.
-
-    Raises:
-        HTTPException:
-            - Various HTTPExceptions if database or validation errors occur at a lower level.
-            - 500: For any other unexpected error during receipt retrieval.
-        Exception: Reraised if an unexpected error occurs.
+    :param start_date: Filter for receipts created on or after this date (inclusive).
+    :type start_date: Optional[datetime]
+    :param end_date: Filter for receipts created on or before this date (inclusive).
+    :type end_date: Optional[datetime]
+    :param min_total: Filter for receipts with a total greater than or equal to this value.
+    :type min_total: Optional[Decimal]
+    :param payment_type: Filter for receipts based on payment type ('cash' or 'card').
+    :type payment_type: Optional[str]
+    :param limit: Maximum number of receipts to return.
+    :type limit: int
+    :param offset: Number of receipts to skip for pagination.
+    :type offset: int
+    :param current_user: The current authenticated user.
+    :type current_user: User
+    :param db: The database session dependency.
+    :type db: AsyncSession
+    :return: A list of receipts matching the given filters.
+    :rtype: List[ReceiptResponseOut]
+    :raises HTTPException: If database or validation errors occur.
+    :raises Exception: For any unexpected error during receipt retrieval.
     """
     try:
         receipts = await fetch_receipts(
@@ -145,20 +144,16 @@ async def get_receipt(
     """
     Retrieve a specific receipt by its unique ID.
 
-    Args:
-        receipt_id (UUID): The unique identifier of the receipt to retrieve.
-        current_user (User): The current authenticated user (injected by FastAPI).
-        db (AsyncSession): The database session dependency.
-
-    Returns:
-        ReceiptResponseOut: The details of the requested receipt.
-
-    Raises:
-        HTTPException:
-            - 404: If the receipt is not found.
-            - Various other HTTPExceptions if database errors occur.
-            - 500: For any other unexpected error during receipt retrieval.
-        Exception: Reraised if an unexpected error occurs.
+    :param receipt_id: The unique identifier of the receipt to retrieve.
+    :type receipt_id: UUID
+    :param current_user: The current authenticated user.
+    :type current_user: User
+    :param db: The database session dependency.
+    :type db: AsyncSession
+    :return: The details of the requested receipt.
+    :rtype: ReceiptResponseOut
+    :raises HTTPException: If the receipt is not found or if database errors occur.
+    :raises Exception: For any unexpected error during receipt retrieval.
     """
     try:
         receipt = await fetch_receipt_by_id(db=db, user_id=current_user.id, receipt_id=receipt_id)
@@ -179,12 +174,11 @@ async def get_receipt(
         ) from err
 
 
-@router.get("/public/{receipt_id}/download")
+@router.get("/public/{receipt_id}/view")
 async def download_receipt_file(
     receipt_id: UUID,
     file_type: str = Query(..., description="Either 'txt' or 'qr'"),
     line_length: int = Query(40, gt=0, description="Number of characters per line"),
-    # download: bool = Query(True, description="If true, force download; if false, view inline"),
     db: AsyncSession = Depends(get_db),
 ):
     """
@@ -192,23 +186,18 @@ async def download_receipt_file(
 
     If the files do not exist, they are generated, stored, and then returned.
 
-    Args:
-        receipt_id (UUID): The unique identifier of the public receipt.
-        file_type (str): Specifies which file to download ('txt' or 'qr').
-        line_length (int): Number of characters per line in the generated text file.
-        db (AsyncSession): The database session dependency.
-
-    Returns:
-        FileResponse: A file response containing either a .txt or .png (QR) file.
-
-    Raises:
-        HTTPException:
-            - 400: If the file_type is not 'txt' or 'qr'.
-            - 404: If the requested file is not found on the server after generation.
-            - Various other HTTPExceptions if database errors occur.
-            - 500: For any unexpected error during file preparation or retrieval.
-        Exception: Reraised if an unexpected error occurs.
-
+    :param receipt_id: The unique identifier of the public receipt.
+    :type receipt_id: UUID
+    :param file_type: Specifies which file to download ('txt' or 'qr').
+    :type file_type: str
+    :param line_length: Number of characters per line in the generated text file.
+    :type line_length: int
+    :param db: The database session dependency.
+    :type db: AsyncSession
+    :return: A FileResponse containing either a .txt or .png (QR) file.
+    :rtype: FileResponse
+    :raises HTTPException: If file_type is invalid, file is not found, or database errors occur.
+    :raises Exception: For any unexpected error during file preparation or retrieval.
     """
     try:
         if file_type not in ("txt", "qr"):
@@ -245,3 +234,4 @@ async def download_receipt_file(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=messages.DOWNLOAD_URL_ERROR
         ) from err
+

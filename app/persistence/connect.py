@@ -16,18 +16,19 @@ class DatabaseSessionManager:
     """
     Manages the creation and usage of an asynchronous database session.
 
-    Attributes:
-        _engine (AsyncEngine | None): The SQLAlchemy engine for async operations.
-        _session_maker (async_sessionmaker | None): A session factory bound to the async engine.
+    :ivar _engine: The SQLAlchemy engine for async operations.
+    :vartype _engine: AsyncEngine | None
+    :ivar _session_maker: A session factory bound to the async engine.
+    :vartype _session_maker: async_sessionmaker | None
     """
 
     def __init__(self, url: str):
         """
         Initialize the DatabaseSessionManager with a given database URL.
 
-        Args:
-            url (str): The database connection URL in the format:
-                       'postgresql+asyncpg://user:password@host:port/db_name'.
+        :param url: The database connection URL in the format:
+                    'postgresql+asyncpg://user:password@host:port/db_name'.
+        :type url: str
         """
         self._engine: AsyncEngine | None = create_async_engine(url)
         self._session_maker: async_sessionmaker | None = async_sessionmaker(
@@ -42,12 +43,9 @@ class DatabaseSessionManager:
         """
         Provides an asynchronous context manager for database sessions.
 
-        Yields:
-            AsyncSession: The active database session within the context manager.
-
-        Raises:
-            Exception: If the session maker is not initialized.
-            Exception: Reraises any exceptions encountered during the session block.
+        :yields: The active database session.
+        :rtype: AsyncSession
+        :raises Exception: If the session maker is not initialized or if any exception occurs during the session block.
         """
         if self._session_maker is None:
             raise Exception(messages.DB_CANNOT_CONNECT)
@@ -76,11 +74,9 @@ async def get_db():
     """
     Dependency function that provides a database session for FastAPI endpoints.
 
-    Yields:
-        AsyncSession: An active database session.
-
-    Raises:
-        Exception: Propagates any exceptions thrown inside the session context manager.
+    :yields: An active database session.
+    :rtype: AsyncSession
+    :raises Exception: Propagates any exceptions thrown inside the session context manager.
     """
     async with sessionmanager.session() as session:
         yield session

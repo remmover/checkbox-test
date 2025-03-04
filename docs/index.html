@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+
+<html lang="Python" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>checkbox-test documentation &#8212; checkbox-test 0.1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_build/html/_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_build/html/_static/nature.css?v=279e0f84" />
+    <script src="_build/html/_static/documentation_options.js?v=e390f2d4"></script>
+    <script src="_build/html/_static/doctools.js?v=9bcbadda"></script>
+    <script src="_build/html/_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="_build/html/genindex.html" />
+    <link rel="search" title="Search" href="_build/html/search.html" />
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="_build/html/genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="_build/html/py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">checkbox-test 0.1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">checkbox-test documentation</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="checkbox-test-documentation">
+<h1>checkbox-test documentation<a class="headerlink" href="#checkbox-test-documentation" title="Link to this heading">¶</a></h1>
+<p>Add your content using <code class="docutils literal notranslate"><span class="pre">reStructuredText</span></code> syntax. See the
+<a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html">reStructuredText</a>
+documentation for details.</p>
+</section>
+<section id="welcome-to-rest-api-s-documentation">
+<h1>Welcome to Rest API's documentation!<a class="headerlink" href="#welcome-to-rest-api-s-documentation" title="Link to this heading">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="rest-api-repository-authentication">
+<h1>REST API repository Authentication<a class="headerlink" href="#rest-api-repository-authentication" title="Link to this heading">¶</a></h1>
+<dl class="py function" id="module-app.persistence.repository.auth">
+<dt class="sig sig-object py" id="app.persistence.repository.auth.create_user">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.persistence.repository.auth.</span></span><span class="sig-name descname"><span class="pre">create_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#app.service.schemas.UserSchema" title="app.service.schemas.UserSchema"><span class="pre">UserSchema</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AsyncSession</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">User</span></span></span><a class="headerlink" href="#app.persistence.repository.auth.create_user" title="Link to this definition">¶</a></dt>
+<dd><p>Create a new user in the database based on the provided schema data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>body</strong> (<a class="reference internal" href="#app.service.schemas.UserSchema" title="app.service.schemas.UserSchema"><em>UserSchema</em></a>) -- The data required to create a new user, including fields like login and password.</p></li>
+<li><p><strong>db</strong> (<em>AsyncSession</em>) -- The async database session dependency.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The newly created user object with a database-generated ID.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>User</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.persistence.repository.auth.get_user_by_login">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.persistence.repository.auth.</span></span><span class="sig-name descname"><span class="pre">get_user_by_login</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">login</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AsyncSession</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">User</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#app.persistence.repository.auth.get_user_by_login" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve a user from the database by login, in a case-insensitive manner.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>login</strong> (<em>str</em>) -- The user's login or username.</p></li>
+<li><p><strong>db</strong> (<em>AsyncSession</em>) -- The async database session dependency.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The user object if found, otherwise None.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[User]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.persistence.repository.auth.update_token">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.persistence.repository.auth.</span></span><span class="sig-name descname"><span class="pre">update_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">User</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AsyncSession</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#app.persistence.repository.auth.update_token" title="Link to this definition">¶</a></dt>
+<dd><p>Update the user's refresh token in the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user</strong> (<em>User</em>) -- The user whose refresh token needs to be updated.</p></li>
+<li><p><strong>token</strong> (<em>str</em><em> | </em><em>None</em>) -- The new refresh token, or None to clear it.</p></li>
+<li><p><strong>db</strong> (<em>AsyncSession</em>) -- The async database session dependency.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="rest-api-repository-receipts">
+<h1>REST API repository Receipts<a class="headerlink" href="#rest-api-repository-receipts" title="Link to this heading">¶</a></h1>
+<dl class="py function" id="module-app.persistence.repository.receipts">
+<dt class="sig sig-object py" id="app.persistence.repository.receipts.create_receipt_in_db">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.persistence.repository.receipts.</span></span><span class="sig-name descname"><span class="pre">create_receipt_in_db</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">receipt_request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#app.service.schemas.ReceiptCreateSchema" title="app.service.schemas.ReceiptCreateSchema"><span class="pre">ReceiptCreateSchema</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">User</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_sum</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Decimal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AsyncSession</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Receipt</span></span></span><a class="headerlink" href="#app.persistence.repository.receipts.create_receipt_in_db" title="Link to this definition">¶</a></dt>
+<dd><p>Create a new receipt record in the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>receipt_request</strong> (<a class="reference internal" href="#app.service.schemas.ReceiptCreateSchema" title="app.service.schemas.ReceiptCreateSchema"><em>ReceiptCreateSchema</em></a>) -- The data schema for creating a receipt.</p></li>
+<li><p><strong>current_user</strong> (<em>User</em>) -- The current authenticated user who owns the receipt.</p></li>
+<li><p><strong>total_sum</strong> (<em>Decimal</em>) -- The total cost of all products in the receipt.</p></li>
+<li><p><strong>db</strong> (<em>AsyncSession</em>) -- The async database session dependency.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The newly created receipt record.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Receipt</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>SQLAlchemyError</strong> -- If an error occurs while committing the transaction to the database.</p></li>
+<li><p><strong>Exception</strong> -- For any unexpected errors that might occur during the creation process.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.persistence.repository.receipts.fetch_receipt_by_id">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.persistence.repository.receipts.</span></span><span class="sig-name descname"><span class="pre">fetch_receipt_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AsyncSession</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">receipt_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Receipt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#app.persistence.repository.receipts.fetch_receipt_by_id" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve a specific receipt by its ID for a given user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db</strong> (<em>AsyncSession</em>) -- The async database session dependency.</p></li>
+<li><p><strong>user_id</strong> (<em>UUID</em>) -- The ID of the user who owns the receipt.</p></li>
+<li><p><strong>receipt_id</strong> (<em>UUID</em>) -- The unique identifier of the receipt.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The corresponding receipt if found, otherwise None.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[Receipt]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>SQLAlchemyError</strong> -- If a database error occurs during the query execution.</p></li>
+<li><p><strong>Exception</strong> -- For any unexpected errors that might occur.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.persistence.repository.receipts.fetch_receipt_by_id_public">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.persistence.repository.receipts.</span></span><span class="sig-name descname"><span class="pre">fetch_receipt_by_id_public</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AsyncSession</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">receipt_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Receipt</span></span></span><a class="headerlink" href="#app.persistence.repository.receipts.fetch_receipt_by_id_public" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve a public receipt by its unique ID (regardless of user).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db</strong> (<em>AsyncSession</em>) -- The async database session dependency.</p></li>
+<li><p><strong>receipt_id</strong> (<em>UUID</em>) -- The unique identifier of the receipt.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The requested receipt if found.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Receipt</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>HTTPException</strong> -- If the receipt is not found in the database.</p></li>
+<li><p><strong>SQLAlchemyError</strong> -- If a database error occurs during the query execution.</p></li>
+<li><p><strong>Exception</strong> -- For any unexpected errors that might occur.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.persistence.repository.receipts.fetch_receipts">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.persistence.repository.receipts.</span></span><span class="sig-name descname"><span class="pre">fetch_receipts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AsyncSession</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_total</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Decimal</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payment_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Receipt</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#app.persistence.repository.receipts.fetch_receipts" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve a list of receipts matching various filter criteria.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db</strong> (<em>AsyncSession</em>) -- The async database session dependency.</p></li>
+<li><p><strong>user_id</strong> (<em>UUID</em>) -- The ID of the user who owns the receipts.</p></li>
+<li><p><strong>start_date</strong> (<em>Optional</em><em>[</em><em>datetime</em><em>]</em>) -- Filters receipts created on or after this date.</p></li>
+<li><p><strong>end_date</strong> (<em>Optional</em><em>[</em><em>datetime</em><em>]</em>) -- Filters receipts created on or before this date.</p></li>
+<li><p><strong>min_total</strong> (<em>Optional</em><em>[</em><em>Decimal</em><em>]</em>) -- Filters receipts with a total amount &gt;= this value.</p></li>
+<li><p><strong>payment_type</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) -- Filters receipts by payment type (e.g., 'cash' or 'card').</p></li>
+<li><p><strong>limit</strong> (<em>int</em>) -- The maximum number of receipts to return.</p></li>
+<li><p><strong>offset</strong> (<em>int</em>) -- The number of receipts to skip before starting to collect the result set.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of receipts matching the provided filters.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[Receipt]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>SQLAlchemyError</strong> -- If a database error occurs during the query execution.</p></li>
+<li><p><strong>Exception</strong> -- For any unexpected errors that might occur.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="rest-api-routes-authentication">
+<h1>REST API routes Authentication<a class="headerlink" href="#rest-api-routes-authentication" title="Link to this heading">¶</a></h1>
+<dl class="py function" id="module-app.router.auth">
+<dt class="sig sig-object py" id="app.router.auth.login">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.router.auth.</span></span><span class="sig-name descname"><span class="pre">login</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">OAuth2PasswordRequestForm</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(NoneType)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AsyncSession</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.router.auth.login" title="Link to this definition">¶</a></dt>
+<dd><p>Authenticate a user and return access/refresh tokens.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>body</strong> (<em>OAuth2PasswordRequestForm</em>) -- Includes 'username' (the user's login) and 'password'.</p></li>
+<li><p><strong>db</strong> (<em>AsyncSession</em>) -- The database session dependency.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A TokenModel containing 'access_token', 'refresh_token', and 'token_type'.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#app.service.schemas.TokenModel" title="app.service.schemas.TokenModel">TokenModel</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>HTTPException</strong> -- If the login does not exist or the password is invalid.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.router.auth.refresh_token">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.router.auth.</span></span><span class="sig-name descname"><span class="pre">refresh_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">credentials</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HTTPAuthorizationCredentials</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Security(HTTPBearer)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AsyncSession</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.router.auth.refresh_token" title="Link to this definition">¶</a></dt>
+<dd><p>Refresh and return new access and refresh tokens.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>credentials</strong> (<em>HTTPAuthorizationCredentials</em>) -- The current HTTP authorization credentials (should include the refresh token).</p></li>
+<li><p><strong>db</strong> (<em>AsyncSession</em>) -- The database session dependency.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A TokenModel containing a new 'access_token', a new 'refresh_token', and 'token_type'.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#app.service.schemas.TokenModel" title="app.service.schemas.TokenModel">TokenModel</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>HTTPException</strong> -- If the refresh token is invalid or does not match the user's stored refresh token.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.router.auth.signup">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.router.auth.</span></span><span class="sig-name descname"><span class="pre">signup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#app.service.schemas.UserSchema" title="app.service.schemas.UserSchema"><span class="pre">UserSchema</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AsyncSession</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.router.auth.signup" title="Link to this definition">¶</a></dt>
+<dd><p>Register a new user account.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>body</strong> (<a class="reference internal" href="#app.service.schemas.UserSchema" title="app.service.schemas.UserSchema"><em>UserSchema</em></a>) -- The user registration data, including login and password.</p></li>
+<li><p><strong>db</strong> (<em>AsyncSession</em>) -- The database session dependency.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A schema containing the newly created user data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#app.service.schemas.UserResponseSchema" title="app.service.schemas.UserResponseSchema">UserResponseSchema</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>HTTPException</strong> -- If a user with the given login already exists.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-app.router.receipts">
+<span id="rest-api-routes-receipts"></span><h1>REST API routes Receipts<a class="headerlink" href="#module-app.router.receipts" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.router.receipts.create_receipt">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.router.receipts.</span></span><span class="sig-name descname"><span class="pre">create_receipt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">receipt_request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#app.service.schemas.ReceiptCreateSchema" title="app.service.schemas.ReceiptCreateSchema"><span class="pre">ReceiptCreateSchema</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">User</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_current_user)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AsyncSession</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.router.receipts.create_receipt" title="Link to this definition">¶</a></dt>
+<dd><p>Create a new receipt in the database using the provided schema data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>receipt_request</strong> (<a class="reference internal" href="#app.service.schemas.ReceiptCreateSchema" title="app.service.schemas.ReceiptCreateSchema"><em>ReceiptCreateSchema</em></a>) -- The data required to create a new receipt.</p></li>
+<li><p><strong>current_user</strong> (<em>User</em>) -- The current authenticated user.</p></li>
+<li><p><strong>db</strong> (<em>AsyncSession</em>) -- The database session dependency.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A response object containing information about the newly created receipt.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#app.service.schemas.ReceiptResponse" title="app.service.schemas.ReceiptResponse">ReceiptResponse</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>HTTPException</strong> -- If database or validation errors occur.</p></li>
+<li><p><strong>Exception</strong> -- For any unexpected error during receipt creation.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.router.receipts.download_receipt_file">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.router.receipts.</span></span><span class="sig-name descname"><span class="pre">download_receipt_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">receipt_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Query(PydanticUndefined)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Query(40)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AsyncSession</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.router.receipts.download_receipt_file" title="Link to this definition">¶</a></dt>
+<dd><p>Download a text or QR file associated with a public receipt.</p>
+<p>If the files do not exist, they are generated, stored, and then returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>receipt_id</strong> (<em>UUID</em>) -- The unique identifier of the public receipt.</p></li>
+<li><p><strong>file_type</strong> (<em>str</em>) -- Specifies which file to download ('txt' or 'qr').</p></li>
+<li><p><strong>line_length</strong> (<em>int</em>) -- Number of characters per line in the generated text file.</p></li>
+<li><p><strong>db</strong> (<em>AsyncSession</em>) -- The database session dependency.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A FileResponse containing either a .txt or .png (QR) file.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>FileResponse</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>HTTPException</strong> -- If file_type is invalid, file is not found, or database errors occur.</p></li>
+<li><p><strong>Exception</strong> -- For any unexpected error during file preparation or retrieval.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.router.receipts.get_receipt">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.router.receipts.</span></span><span class="sig-name descname"><span class="pre">get_receipt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">receipt_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">User</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_current_user)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AsyncSession</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.router.receipts.get_receipt" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve a specific receipt by its unique ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>receipt_id</strong> (<em>UUID</em>) -- The unique identifier of the receipt to retrieve.</p></li>
+<li><p><strong>current_user</strong> (<em>User</em>) -- The current authenticated user.</p></li>
+<li><p><strong>db</strong> (<em>AsyncSession</em>) -- The database session dependency.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The details of the requested receipt.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#app.service.schemas.ReceiptResponseOut" title="app.service.schemas.ReceiptResponseOut">ReceiptResponseOut</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>HTTPException</strong> -- If the receipt is not found or if database errors occur.</p></li>
+<li><p><strong>Exception</strong> -- For any unexpected error during receipt retrieval.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.router.receipts.list_receipts">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.router.receipts.</span></span><span class="sig-name descname"><span class="pre">list_receipts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Query(None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Query(None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_total</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Decimal</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Query(None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payment_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Query(None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Query(10)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Query(0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">User</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_current_user)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AsyncSession</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.router.receipts.list_receipts" title="Link to this definition">¶</a></dt>
+<dd><p>List receipts belonging to the current user, with optional filters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start_date</strong> (<em>Optional</em><em>[</em><em>datetime</em><em>]</em>) -- Filter for receipts created on or after this date (inclusive).</p></li>
+<li><p><strong>end_date</strong> (<em>Optional</em><em>[</em><em>datetime</em><em>]</em>) -- Filter for receipts created on or before this date (inclusive).</p></li>
+<li><p><strong>min_total</strong> (<em>Optional</em><em>[</em><em>Decimal</em><em>]</em>) -- Filter for receipts with a total greater than or equal to this value.</p></li>
+<li><p><strong>payment_type</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) -- Filter for receipts based on payment type ('cash' or 'card').</p></li>
+<li><p><strong>limit</strong> (<em>int</em>) -- Maximum number of receipts to return.</p></li>
+<li><p><strong>offset</strong> (<em>int</em>) -- Number of receipts to skip for pagination.</p></li>
+<li><p><strong>current_user</strong> (<em>User</em>) -- The current authenticated user.</p></li>
+<li><p><strong>db</strong> (<em>AsyncSession</em>) -- The database session dependency.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of receipts matching the given filters.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="#app.service.schemas.ReceiptResponseOut" title="app.service.schemas.ReceiptResponseOut">ReceiptResponseOut</a>]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>HTTPException</strong> -- If database or validation errors occur.</p></li>
+<li><p><strong>Exception</strong> -- For any unexpected error during receipt retrieval.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="rest-api-service-authentication">
+<h1>REST API service Authentication<a class="headerlink" href="#rest-api-service-authentication" title="Link to this heading">¶</a></h1>
+<dl class="py class" id="module-app.service.auth">
+<dt class="sig sig-object py" id="app.service.auth.Auth">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.service.auth.</span></span><span class="sig-name descname"><span class="pre">Auth</span></span><a class="headerlink" href="#app.service.auth.Auth" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A service class handling authentication and token management using timezone-aware datetimes in UTC.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>pwd_context (CryptContext): A passlib CryptContext for password hashing.
+SECRET_KEY (str): The secret key used for JWT encoding.
+ALGORITHM (str): The algorithm used for JWT encoding.
+oauth2_scheme (OAuth2PasswordBearer): The OAuth2 scheme for token retrieval.
+cache (redis.Redis): Redis client instance for caching user data.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.auth.Auth.ALGORITHM">
+<span class="sig-name descname"><span class="pre">ALGORITHM</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'HS256'</span></em><a class="headerlink" href="#app.service.auth.Auth.ALGORITHM" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.auth.Auth.SECRET_KEY">
+<span class="sig-name descname"><span class="pre">SECRET_KEY</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'SECRET_KEY'</span></em><a class="headerlink" href="#app.service.auth.Auth.SECRET_KEY" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.auth.Auth.cache">
+<span class="sig-name descname"><span class="pre">cache</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;redis.client.Redis(&lt;redis.connection.ConnectionPool(&lt;redis.connection.Connection(host=REDIS_HOST,port=6379,db=0)&gt;)&gt;)&gt;</span></em><a class="headerlink" href="#app.service.auth.Auth.cache" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.service.auth.Auth.create_access_token">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_access_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expires_delta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#app.service.auth.Auth.create_access_token" title="Link to this definition">¶</a></dt>
+<dd><p>Creates an access token (JWT) with an optional expiration in seconds using timezone-aware datetime.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) -- The data payload to include in the token.</p></li>
+<li><p><strong>expires_delta</strong> (<em>Optional</em><em>[</em><em>float</em><em>]</em>) -- Optional expiration time in seconds. Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The encoded access token.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.service.auth.Auth.create_refresh_token">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_refresh_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expires_delta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#app.service.auth.Auth.create_refresh_token" title="Link to this definition">¶</a></dt>
+<dd><p>Creates a refresh token (JWT) with an optional expiration in seconds using timezone-aware datetime.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) -- The data payload to include in the token.</p></li>
+<li><p><strong>expires_delta</strong> (<em>Optional</em><em>[</em><em>float</em><em>]</em>) -- Optional expiration time in seconds. Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The encoded refresh token.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.service.auth.Auth.decode_refresh_token">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">decode_refresh_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">refresh_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#app.service.auth.Auth.decode_refresh_token" title="Link to this definition">¶</a></dt>
+<dd><p>Validates a refresh token and returns the 'sub' (login) if valid.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>refresh_token</strong> (<em>str</em>) -- The refresh token to decode.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The login (sub) extracted from the token.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>HTTPException</strong> -- If the token is invalid or does not have a refresh token scope.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.service.auth.Auth.get_current_user">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_current_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(OAuth2PasswordBearer)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AsyncSession</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="headerlink" href="#app.service.auth.Auth.get_current_user" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieves the current user from the access token.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>token</strong> (<em>str</em>) -- The access token provided by the client.</p></li>
+<li><p><strong>db</strong> (<em>AsyncSession</em>) -- The asynchronous database session.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The user object if the token is valid.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>HTTPException</strong> -- If the token is invalid or the user is not found.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.service.auth.Auth.get_login_from_token">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_login_from_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#app.service.auth.Auth.get_login_from_token" title="Link to this definition">¶</a></dt>
+<dd><p>Extracts the 'sub' (login) from an access or refresh token.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>token</strong> (<em>str</em>) -- The JWT token.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The login (sub) extracted from the token.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>HTTPException</strong> -- If the token is invalid.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.service.auth.Auth.get_password_hash">
+<span class="sig-name descname"><span class="pre">get_password_hash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#app.service.auth.Auth.get_password_hash" title="Link to this definition">¶</a></dt>
+<dd><p>Hashes a plain text password using bcrypt.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>password</strong> (<em>str</em>) -- The plain text password.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The hashed password.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.auth.Auth.oauth2_scheme">
+<span class="sig-name descname"><span class="pre">oauth2_scheme</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;fastapi.security.oauth2.OAuth2PasswordBearer</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#app.service.auth.Auth.oauth2_scheme" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.auth.Auth.pwd_context">
+<span class="sig-name descname"><span class="pre">pwd_context</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;CryptContext&gt;</span></em><a class="headerlink" href="#app.service.auth.Auth.pwd_context" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.service.auth.Auth.verify_password">
+<span class="sig-name descname"><span class="pre">verify_password</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plain_password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hashed_password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#app.service.auth.Auth.verify_password" title="Link to this definition">¶</a></dt>
+<dd><p>Verifies a plain text password against a hashed password.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>plain_password</strong> (<em>str</em>) -- The plain text password.</p></li>
+<li><p><strong>hashed_password</strong> (<em>str</em>) -- The hashed password to compare against.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the plain password matches the hashed password, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-app.service.utils">
+<span id="rest-api-service-utils"></span><h1>REST API service Utils<a class="headerlink" href="#module-app.service.utils" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.service.utils.build_receipt_response_out">
+<span class="sig-prename descclassname"><span class="pre">app.service.utils.</span></span><span class="sig-name descname"><span class="pre">build_receipt_response_out</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">receipt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Receipt</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#app.service.schemas.ReceiptResponseOut" title="app.service.schemas.ReceiptResponseOut"><span class="pre">ReceiptResponseOut</span></a></span></span><a class="headerlink" href="#app.service.utils.build_receipt_response_out" title="Link to this definition">¶</a></dt>
+<dd><p>Converts a receipt ORM object into a ReceiptResponseOut schema instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>receipt</strong> (<em>Receipt</em>) -- A receipt ORM object, including related items and payment details.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Pydantic response schema for the receipt.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#app.service.schemas.ReceiptResponseOut" title="app.service.schemas.ReceiptResponseOut">ReceiptResponseOut</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.service.utils.calculate_receipt_details">
+<span class="sig-prename descclassname"><span class="pre">app.service.utils.</span></span><span class="sig-name descname"><span class="pre">calculate_receipt_details</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">receipt_request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#app.service.schemas.ReceiptCreateSchema" title="app.service.schemas.ReceiptCreateSchema"><span class="pre">ReceiptCreateSchema</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#app.service.schemas.CalculatedProduct" title="app.service.schemas.CalculatedProduct"><span class="pre">CalculatedProduct</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Decimal</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Decimal</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#app.service.utils.calculate_receipt_details" title="Link to this definition">¶</a></dt>
+<dd><p>Calculates details for a receipt, such as total price per product, overall total, and rest for cash payments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>receipt_request</strong> (<a class="reference internal" href="#app.service.schemas.ReceiptCreateSchema" title="app.service.schemas.ReceiptCreateSchema"><em>ReceiptCreateSchema</em></a>) -- The receipt data including products and payment details.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing a list of CalculatedProduct, the total sum, and the rest.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[List[<a class="reference internal" href="#app.service.schemas.CalculatedProduct" title="app.service.schemas.CalculatedProduct">CalculatedProduct</a>], Decimal, Decimal]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>HTTPException</strong> -- If the cash amount provided is insufficient (rest would be negative).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.service.utils.generate_qr_code">
+<span class="sig-prename descclassname"><span class="pre">app.service.utils.</span></span><span class="sig-name descname"><span class="pre">generate_qr_code</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.service.utils.generate_qr_code" title="Link to this definition">¶</a></dt>
+<dd><p>Generates a QR code from the provided URL and saves it to a file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<em>str</em>) -- The URL to be encoded in the QR code.</p></li>
+<li><p><strong>file_path</strong> (<em>str</em>) -- The path where the QR code image will be saved.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>IOError</strong> -- If there's an issue writing the QR code to the file system.</p></li>
+<li><p><strong>Exception</strong> -- Any unexpected error encountered by the qrcode library.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.service.utils.generate_receipt_text">
+<span class="sig-prename descclassname"><span class="pre">app.service.utils.</span></span><span class="sig-name descname"><span class="pre">generate_receipt_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">receipt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Receipt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#app.service.utils.generate_receipt_text" title="Link to this definition">¶</a></dt>
+<dd><p>Generates a formatted textual representation of a receipt.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>receipt</strong> (<em>Receipt</em>) -- The receipt object containing items, payment type, and totals.</p></li>
+<li><p><strong>line_length</strong> (<em>int</em>) -- Number of characters per line in the generated text.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A multiline string representing the formatted receipt text.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.service.utils.get_paid_and_rest">
+<span class="sig-prename descclassname"><span class="pre">app.service.utils.</span></span><span class="sig-name descname"><span class="pre">get_paid_and_rest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">payment_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PaymentType</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_amount</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Decimal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paid_amount</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Decimal</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Decimal</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Decimal</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#app.service.utils.get_paid_and_rest" title="Link to this definition">¶</a></dt>
+<dd><p>Computes how much was actually paid and how much remains (rest).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>payment_type</strong> (<em>PaymentType</em>) -- The type of payment (card or cash).</p></li>
+<li><p><strong>total_amount</strong> (<em>Decimal</em>) -- The total amount of the receipt.</p></li>
+<li><p><strong>paid_amount</strong> (<em>Decimal</em>) -- The amount actually paid for the receipt.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple of (paid_amount, rest).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[Decimal, Decimal]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.service.utils.prepare_receipt_files">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.service.utils.</span></span><span class="sig-name descname"><span class="pre">prepare_receipt_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AsyncSession</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">receipt_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#app.service.utils.prepare_receipt_files" title="Link to this definition">¶</a></dt>
+<dd><p>Fetches a receipt by its public ID. If the corresponding text and QR code files do not exist,
+they are generated, stored in the database, and then returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>db</strong> (<em>AsyncSession</em>) -- The asynchronous database session.</p></li>
+<li><p><strong>receipt_id</strong> (<em>UUID</em>) -- The public identifier of the receipt.</p></li>
+<li><p><strong>line_length</strong> (<em>int</em>) -- Number of characters per line when generating the text file.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing the text file path and the QR code file path.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[str, str]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>HTTPException</strong> -- If the receipt does not exist.</p></li>
+<li><p><strong>IOError</strong> -- If generating or writing the files fails.</p></li>
+<li><p><strong>Exception</strong> -- For any unexpected error encountered while updating the database.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-app.service.schemas">
+<span id="rest-api-service-schemas"></span><h1>REST API service Schemas<a class="headerlink" href="#module-app.service.schemas" title="Link to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="app.service.schemas.CalculatedProduct">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.service.schemas.</span></span><span class="sig-name descname"><span class="pre">CalculatedProduct</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">price</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Decimal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quantity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Decimal</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.service.schemas.CalculatedProduct" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#app.service.schemas.ProductBase" title="app.service.schemas.ProductBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProductBase</span></code></a></p>
+<p>A product with a computed 'total' field (price * quantity).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>total</strong> (<em>Decimal</em>) -- The computed total for the product.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.CalculatedProduct.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#app.service.schemas.CalculatedProduct.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.CalculatedProduct.total">
+<span class="sig-name descname"><span class="pre">total</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Decimal</span></em><a class="headerlink" href="#app.service.schemas.CalculatedProduct.total" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="app.service.schemas.PaymentData">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.service.schemas.</span></span><span class="sig-name descname"><span class="pre">PaymentData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Decimal</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.service.schemas.PaymentData" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Payment details for a transaction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>type</strong> (<em>str</em>) -- The type of payment; must be either 'cash' or 'card'.</p></li>
+<li><p><strong>amount</strong> (<em>Optional</em><em>[</em><em>Decimal</em><em>]</em>) -- The payment amount; required if the payment type is 'cash'.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.PaymentData.amount">
+<span class="sig-name descname"><span class="pre">amount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Decimal</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.service.schemas.PaymentData.amount" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.service.schemas.PaymentData.check_cash_amount">
+<span class="sig-name descname"><span class="pre">check_cash_amount</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#app.service.schemas.PaymentData.check_cash_amount" title="Link to this definition">¶</a></dt>
+<dd><p>Validates that an amount is provided when the payment type is 'cash'.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> -- If payment type is 'cash' but <cite>amount</cite> is None.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The validated PaymentData instance.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#app.service.schemas.PaymentData" title="app.service.schemas.PaymentData">PaymentData</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.PaymentData.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#app.service.schemas.PaymentData.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.PaymentData.type">
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#app.service.schemas.PaymentData.type" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.service.schemas.PaymentData.validate_type">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.service.schemas.PaymentData.validate_type" title="Link to this definition">¶</a></dt>
+<dd><p>Validates the payment type to ensure it is either 'cash' or 'card'.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>v</strong> (<em>str</em>) -- The payment type value.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> -- If the payment type is invalid.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The validated payment type.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="app.service.schemas.ProductBase">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.service.schemas.</span></span><span class="sig-name descname"><span class="pre">ProductBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">price</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Decimal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quantity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.service.schemas.ProductBase" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Base model describing a product to avoid duplication.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) -- The name of the product.</p></li>
+<li><p><strong>price</strong> (<em>Decimal</em>) -- The price of the product.</p></li>
+<li><p><strong>quantity</strong> (<em>int</em>) -- The quantity of the product.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.ProductBase.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#app.service.schemas.ProductBase.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.ProductBase.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#app.service.schemas.ProductBase.name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.ProductBase.price">
+<span class="sig-name descname"><span class="pre">price</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Decimal</span></em><a class="headerlink" href="#app.service.schemas.ProductBase.price" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.ProductBase.quantity">
+<span class="sig-name descname"><span class="pre">quantity</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#app.service.schemas.ProductBase.quantity" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="app.service.schemas.ProductItem">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.service.schemas.</span></span><span class="sig-name descname"><span class="pre">ProductItem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">price</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Decimal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quantity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.service.schemas.ProductItem" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#app.service.schemas.ProductBase" title="app.service.schemas.ProductBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProductBase</span></code></a></p>
+<p>A product item inherited from ProductBase, kept for backward compatibility
+or for further extension.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.ProductItem.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#app.service.schemas.ProductItem.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="app.service.schemas.ReceiptCreateSchema">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.service.schemas.</span></span><span class="sig-name descname"><span class="pre">ReceiptCreateSchema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">products</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#app.service.schemas.ProductItem" title="app.service.schemas.ProductItem"><span class="pre">ProductItem</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#app.service.schemas.PaymentData" title="app.service.schemas.PaymentData"><span class="pre">PaymentData</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.service.schemas.ReceiptCreateSchema" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Schema for creating a new receipt.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>products</strong> (<em>List</em><em>[</em><a class="reference internal" href="#app.service.schemas.ProductItem" title="app.service.schemas.ProductItem"><em>ProductItem</em></a><em>]</em>) -- List of product items included in the receipt.</p></li>
+<li><p><strong>payment</strong> (<a class="reference internal" href="#app.service.schemas.PaymentData" title="app.service.schemas.PaymentData"><em>PaymentData</em></a>) -- Payment information for this receipt.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.ReceiptCreateSchema.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#app.service.schemas.ReceiptCreateSchema.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.ReceiptCreateSchema.payment">
+<span class="sig-name descname"><span class="pre">payment</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#app.service.schemas.PaymentData" title="app.service.schemas.PaymentData"><span class="pre">PaymentData</span></a></em><a class="headerlink" href="#app.service.schemas.ReceiptCreateSchema.payment" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.ReceiptCreateSchema.products">
+<span class="sig-name descname"><span class="pre">products</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#app.service.schemas.ProductItem" title="app.service.schemas.ProductItem"><span class="pre">ProductItem</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#app.service.schemas.ReceiptCreateSchema.products" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="app.service.schemas.ReceiptItemResponse">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.service.schemas.</span></span><span class="sig-name descname"><span class="pre">ReceiptItemResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">product_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit_price</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Decimal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quantity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.service.schemas.ReceiptItemResponse" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Simplified model for displaying an item within a receipt, using different field
+names from the base product for clarity.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>product_name</strong> (<em>str</em>) -- The name of the product.</p></li>
+<li><p><strong>unit_price</strong> (<em>Decimal</em>) -- The unit price of the product.</p></li>
+<li><p><strong>quantity</strong> (<em>int</em>) -- The quantity of the product purchased.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="app.service.schemas.ReceiptItemResponse.Config">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Config</span></span><a class="headerlink" href="#app.service.schemas.ReceiptItemResponse.Config" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.ReceiptItemResponse.Config.from_attributes">
+<span class="sig-name descname"><span class="pre">from_attributes</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#app.service.schemas.ReceiptItemResponse.Config.from_attributes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.ReceiptItemResponse.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'from_attributes':</span> <span class="pre">True}</span></em><a class="headerlink" href="#app.service.schemas.ReceiptItemResponse.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.ReceiptItemResponse.product_name">
+<span class="sig-name descname"><span class="pre">product_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#app.service.schemas.ReceiptItemResponse.product_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.ReceiptItemResponse.quantity">
+<span class="sig-name descname"><span class="pre">quantity</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#app.service.schemas.ReceiptItemResponse.quantity" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.ReceiptItemResponse.unit_price">
+<span class="sig-name descname"><span class="pre">unit_price</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Decimal</span></em><a class="headerlink" href="#app.service.schemas.ReceiptItemResponse.unit_price" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="app.service.schemas.ReceiptListResponse">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.service.schemas.</span></span><span class="sig-name descname"><span class="pre">ReceiptListResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">receipts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#app.service.schemas.ReceiptResponse" title="app.service.schemas.ReceiptResponse"><span class="pre">ReceiptResponse</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.service.schemas.ReceiptListResponse" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Response containing a list of receipts, typically used for pagination or batch retrieval.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>receipts</strong> (<em>List</em><em>[</em><a class="reference internal" href="#app.service.schemas.ReceiptResponse" title="app.service.schemas.ReceiptResponse"><em>ReceiptResponse</em></a><em>]</em>) -- The list of receipt details.</p></li>
+<li><p><strong>total</strong> (<em>int</em>) -- The total count of receipts.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.ReceiptListResponse.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#app.service.schemas.ReceiptListResponse.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.ReceiptListResponse.receipts">
+<span class="sig-name descname"><span class="pre">receipts</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#app.service.schemas.ReceiptResponse" title="app.service.schemas.ReceiptResponse"><span class="pre">ReceiptResponse</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#app.service.schemas.ReceiptListResponse.receipts" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.ReceiptListResponse.total">
+<span class="sig-name descname"><span class="pre">total</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#app.service.schemas.ReceiptListResponse.total" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="app.service.schemas.ReceiptResponse">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.service.schemas.</span></span><span class="sig-name descname"><span class="pre">ReceiptResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">products</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#app.service.schemas.CalculatedProduct" title="app.service.schemas.CalculatedProduct"><span class="pre">CalculatedProduct</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#app.service.schemas.PaymentData" title="app.service.schemas.PaymentData"><span class="pre">PaymentData</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">total</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Decimal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rest</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Decimal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">created_at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.service.schemas.ReceiptResponse" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Detailed information about a receipt.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>UUID</em>) -- Unique identifier of the receipt.</p></li>
+<li><p><strong>products</strong> (<em>List</em><em>[</em><a class="reference internal" href="#app.service.schemas.CalculatedProduct" title="app.service.schemas.CalculatedProduct"><em>CalculatedProduct</em></a><em>]</em>) -- List of products with calculated totals.</p></li>
+<li><p><strong>payment</strong> (<a class="reference internal" href="#app.service.schemas.PaymentData" title="app.service.schemas.PaymentData"><em>PaymentData</em></a>) -- Payment information for this receipt.</p></li>
+<li><p><strong>total</strong> (<em>Decimal</em>) -- Total amount for the receipt.</p></li>
+<li><p><strong>rest</strong> (<em>Decimal</em>) -- Remaining balance after payment.</p></li>
+<li><p><strong>created_at</strong> (<em>datetime</em>) -- Timestamp when the receipt was created.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.ReceiptResponse.created_at">
+<span class="sig-name descname"><span class="pre">created_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></em><a class="headerlink" href="#app.service.schemas.ReceiptResponse.created_at" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.ReceiptResponse.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">UUID</span></em><a class="headerlink" href="#app.service.schemas.ReceiptResponse.id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.ReceiptResponse.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#app.service.schemas.ReceiptResponse.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.ReceiptResponse.payment">
+<span class="sig-name descname"><span class="pre">payment</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#app.service.schemas.PaymentData" title="app.service.schemas.PaymentData"><span class="pre">PaymentData</span></a></em><a class="headerlink" href="#app.service.schemas.ReceiptResponse.payment" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.ReceiptResponse.products">
+<span class="sig-name descname"><span class="pre">products</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#app.service.schemas.CalculatedProduct" title="app.service.schemas.CalculatedProduct"><span class="pre">CalculatedProduct</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#app.service.schemas.ReceiptResponse.products" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.ReceiptResponse.rest">
+<span class="sig-name descname"><span class="pre">rest</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Decimal</span></em><a class="headerlink" href="#app.service.schemas.ReceiptResponse.rest" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.ReceiptResponse.total">
+<span class="sig-name descname"><span class="pre">total</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Decimal</span></em><a class="headerlink" href="#app.service.schemas.ReceiptResponse.total" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="app.service.schemas.ReceiptResponseOut">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.service.schemas.</span></span><span class="sig-name descname"><span class="pre">ReceiptResponseOut</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">products</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#app.service.schemas.ReceiptItemResponse" title="app.service.schemas.ReceiptItemResponse"><span class="pre">ReceiptItemResponse</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payment_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Decimal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paid_amount</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Decimal</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rest</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Decimal</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">created_at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.service.schemas.ReceiptResponseOut" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Simplified response schema for a receipt, utilizing a different product representation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>UUID</em>) -- Unique identifier of the receipt.</p></li>
+<li><p><strong>products</strong> (<em>List</em><em>[</em><a class="reference internal" href="#app.service.schemas.ReceiptItemResponse" title="app.service.schemas.ReceiptItemResponse"><em>ReceiptItemResponse</em></a><em>]</em>) -- A list of items in the receipt.</p></li>
+<li><p><strong>payment_type</strong> (<em>str</em>) -- Type of payment (e.g., 'cash', 'card').</p></li>
+<li><p><strong>total</strong> (<em>Decimal</em>) -- Total amount for the receipt.</p></li>
+<li><p><strong>paid_amount</strong> (<em>Optional</em><em>[</em><em>Decimal</em><em>]</em>) -- The actual amount paid, if applicable.</p></li>
+<li><p><strong>rest</strong> (<em>Decimal</em>) -- Remaining balance after payment.</p></li>
+<li><p><strong>created_at</strong> (<em>datetime</em>) -- Timestamp when the receipt was created.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="app.service.schemas.ReceiptResponseOut.Config">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Config</span></span><a class="headerlink" href="#app.service.schemas.ReceiptResponseOut.Config" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.ReceiptResponseOut.Config.from_attributes">
+<span class="sig-name descname"><span class="pre">from_attributes</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#app.service.schemas.ReceiptResponseOut.Config.from_attributes" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.ReceiptResponseOut.created_at">
+<span class="sig-name descname"><span class="pre">created_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></em><a class="headerlink" href="#app.service.schemas.ReceiptResponseOut.created_at" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.ReceiptResponseOut.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">UUID</span></em><a class="headerlink" href="#app.service.schemas.ReceiptResponseOut.id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.ReceiptResponseOut.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'from_attributes':</span> <span class="pre">True}</span></em><a class="headerlink" href="#app.service.schemas.ReceiptResponseOut.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.ReceiptResponseOut.paid_amount">
+<span class="sig-name descname"><span class="pre">paid_amount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Decimal</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.service.schemas.ReceiptResponseOut.paid_amount" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.ReceiptResponseOut.payment_type">
+<span class="sig-name descname"><span class="pre">payment_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#app.service.schemas.ReceiptResponseOut.payment_type" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.ReceiptResponseOut.products">
+<span class="sig-name descname"><span class="pre">products</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#app.service.schemas.ReceiptItemResponse" title="app.service.schemas.ReceiptItemResponse"><span class="pre">ReceiptItemResponse</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#app.service.schemas.ReceiptResponseOut.products" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.ReceiptResponseOut.rest">
+<span class="sig-name descname"><span class="pre">rest</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Decimal</span></em><a class="headerlink" href="#app.service.schemas.ReceiptResponseOut.rest" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.ReceiptResponseOut.total">
+<span class="sig-name descname"><span class="pre">total</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Decimal</span></em><a class="headerlink" href="#app.service.schemas.ReceiptResponseOut.total" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="app.service.schemas.TokenModel">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.service.schemas.</span></span><span class="sig-name descname"><span class="pre">TokenModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">access_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refresh_token</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'bearer'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.service.schemas.TokenModel" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Model containing authentication tokens.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>access_token</strong> (<em>str</em>) -- The access token string.</p></li>
+<li><p><strong>refresh_token</strong> (<em>str</em>) -- The refresh token string.</p></li>
+<li><p><strong>token_type</strong> (<em>str</em>) -- The token type, defaults to 'bearer'.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.TokenModel.access_token">
+<span class="sig-name descname"><span class="pre">access_token</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#app.service.schemas.TokenModel.access_token" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.TokenModel.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#app.service.schemas.TokenModel.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.TokenModel.refresh_token">
+<span class="sig-name descname"><span class="pre">refresh_token</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#app.service.schemas.TokenModel.refresh_token" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.TokenModel.token_type">
+<span class="sig-name descname"><span class="pre">token_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#app.service.schemas.TokenModel.token_type" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="app.service.schemas.UserResponseSchema">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.service.schemas.</span></span><span class="sig-name descname"><span class="pre">UserResponseSchema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">login</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.service.schemas.UserResponseSchema" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Response schema with basic user information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>UUID</em>) -- The unique identifier of the user.</p></li>
+<li><p><strong>login</strong> (<em>str</em>) -- The user's username/login.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.UserResponseSchema.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">UUID</span></em><a class="headerlink" href="#app.service.schemas.UserResponseSchema.id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.UserResponseSchema.login">
+<span class="sig-name descname"><span class="pre">login</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#app.service.schemas.UserResponseSchema.login" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.UserResponseSchema.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'from_attributes':</span> <span class="pre">True}</span></em><a class="headerlink" href="#app.service.schemas.UserResponseSchema.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="app.service.schemas.UserSchema">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.service.schemas.</span></span><span class="sig-name descname"><span class="pre">UserSchema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">5</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MaxLen</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">max_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">16</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">login</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">6</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MaxLen</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">max_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">10</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.service.schemas.UserSchema" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Schema for creating or updating a user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) -- The user's name (length between 5 and 16).</p></li>
+<li><p><strong>login</strong> (<em>str</em>) -- The user's username/login.</p></li>
+<li><p><strong>password</strong> (<em>str</em>) -- The user's password (length between 6 and 10).</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.UserSchema.login">
+<span class="sig-name descname"><span class="pre">login</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#app.service.schemas.UserSchema.login" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.UserSchema.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#app.service.schemas.UserSchema.model_config" title="Link to this definition">¶</a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.UserSchema.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#app.service.schemas.UserSchema.name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.service.schemas.UserSchema.password">
+<span class="sig-name descname"><span class="pre">password</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#app.service.schemas.UserSchema.password" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="_build/html/genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="_build/html/py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="_build/html/search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="#">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">checkbox-test documentation</a></li>
+<li><a class="reference internal" href="#welcome-to-rest-api-s-documentation">Welcome to Rest API's documentation!</a></li>
+<li><a class="reference internal" href="#rest-api-repository-authentication">REST API repository Authentication</a><ul>
+<li><a class="reference internal" href="#app.persistence.repository.auth.create_user"><code class="docutils literal notranslate"><span class="pre">create_user()</span></code></a></li>
+<li><a class="reference internal" href="#app.persistence.repository.auth.get_user_by_login"><code class="docutils literal notranslate"><span class="pre">get_user_by_login()</span></code></a></li>
+<li><a class="reference internal" href="#app.persistence.repository.auth.update_token"><code class="docutils literal notranslate"><span class="pre">update_token()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#rest-api-repository-receipts">REST API repository Receipts</a><ul>
+<li><a class="reference internal" href="#app.persistence.repository.receipts.create_receipt_in_db"><code class="docutils literal notranslate"><span class="pre">create_receipt_in_db()</span></code></a></li>
+<li><a class="reference internal" href="#app.persistence.repository.receipts.fetch_receipt_by_id"><code class="docutils literal notranslate"><span class="pre">fetch_receipt_by_id()</span></code></a></li>
+<li><a class="reference internal" href="#app.persistence.repository.receipts.fetch_receipt_by_id_public"><code class="docutils literal notranslate"><span class="pre">fetch_receipt_by_id_public()</span></code></a></li>
+<li><a class="reference internal" href="#app.persistence.repository.receipts.fetch_receipts"><code class="docutils literal notranslate"><span class="pre">fetch_receipts()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#rest-api-routes-authentication">REST API routes Authentication</a><ul>
+<li><a class="reference internal" href="#app.router.auth.login"><code class="docutils literal notranslate"><span class="pre">login()</span></code></a></li>
+<li><a class="reference internal" href="#app.router.auth.refresh_token"><code class="docutils literal notranslate"><span class="pre">refresh_token()</span></code></a></li>
+<li><a class="reference internal" href="#app.router.auth.signup"><code class="docutils literal notranslate"><span class="pre">signup()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-app.router.receipts">REST API routes Receipts</a><ul>
+<li><a class="reference internal" href="#app.router.receipts.create_receipt"><code class="docutils literal notranslate"><span class="pre">create_receipt()</span></code></a></li>
+<li><a class="reference internal" href="#app.router.receipts.download_receipt_file"><code class="docutils literal notranslate"><span class="pre">download_receipt_file()</span></code></a></li>
+<li><a class="reference internal" href="#app.router.receipts.get_receipt"><code class="docutils literal notranslate"><span class="pre">get_receipt()</span></code></a></li>
+<li><a class="reference internal" href="#app.router.receipts.list_receipts"><code class="docutils literal notranslate"><span class="pre">list_receipts()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#rest-api-service-authentication">REST API service Authentication</a><ul>
+<li><a class="reference internal" href="#app.service.auth.Auth"><code class="docutils literal notranslate"><span class="pre">Auth</span></code></a><ul>
+<li><a class="reference internal" href="#app.service.auth.Auth.ALGORITHM"><code class="docutils literal notranslate"><span class="pre">Auth.ALGORITHM</span></code></a></li>
+<li><a class="reference internal" href="#app.service.auth.Auth.SECRET_KEY"><code class="docutils literal notranslate"><span class="pre">Auth.SECRET_KEY</span></code></a></li>
+<li><a class="reference internal" href="#app.service.auth.Auth.cache"><code class="docutils literal notranslate"><span class="pre">Auth.cache</span></code></a></li>
+<li><a class="reference internal" href="#app.service.auth.Auth.create_access_token"><code class="docutils literal notranslate"><span class="pre">Auth.create_access_token()</span></code></a></li>
+<li><a class="reference internal" href="#app.service.auth.Auth.create_refresh_token"><code class="docutils literal notranslate"><span class="pre">Auth.create_refresh_token()</span></code></a></li>
+<li><a class="reference internal" href="#app.service.auth.Auth.decode_refresh_token"><code class="docutils literal notranslate"><span class="pre">Auth.decode_refresh_token()</span></code></a></li>
+<li><a class="reference internal" href="#app.service.auth.Auth.get_current_user"><code class="docutils literal notranslate"><span class="pre">Auth.get_current_user()</span></code></a></li>
+<li><a class="reference internal" href="#app.service.auth.Auth.get_login_from_token"><code class="docutils literal notranslate"><span class="pre">Auth.get_login_from_token()</span></code></a></li>
+<li><a class="reference internal" href="#app.service.auth.Auth.get_password_hash"><code class="docutils literal notranslate"><span class="pre">Auth.get_password_hash()</span></code></a></li>
+<li><a class="reference internal" href="#app.service.auth.Auth.oauth2_scheme"><code class="docutils literal notranslate"><span class="pre">Auth.oauth2_scheme</span></code></a></li>
+<li><a class="reference internal" href="#app.service.auth.Auth.pwd_context"><code class="docutils literal notranslate"><span class="pre">Auth.pwd_context</span></code></a></li>
+<li><a class="reference internal" href="#app.service.auth.Auth.verify_password"><code class="docutils literal notranslate"><span class="pre">Auth.verify_password()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-app.service.utils">REST API service Utils</a><ul>
+<li><a class="reference internal" href="#app.service.utils.build_receipt_response_out"><code class="docutils literal notranslate"><span class="pre">build_receipt_response_out()</span></code></a></li>
+<li><a class="reference internal" href="#app.service.utils.calculate_receipt_details"><code class="docutils literal notranslate"><span class="pre">calculate_receipt_details()</span></code></a></li>
+<li><a class="reference internal" href="#app.service.utils.generate_qr_code"><code class="docutils literal notranslate"><span class="pre">generate_qr_code()</span></code></a></li>
+<li><a class="reference internal" href="#app.service.utils.generate_receipt_text"><code class="docutils literal notranslate"><span class="pre">generate_receipt_text()</span></code></a></li>
+<li><a class="reference internal" href="#app.service.utils.get_paid_and_rest"><code class="docutils literal notranslate"><span class="pre">get_paid_and_rest()</span></code></a></li>
+<li><a class="reference internal" href="#app.service.utils.prepare_receipt_files"><code class="docutils literal notranslate"><span class="pre">prepare_receipt_files()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-app.service.schemas">REST API service Schemas</a><ul>
+<li><a class="reference internal" href="#app.service.schemas.CalculatedProduct"><code class="docutils literal notranslate"><span class="pre">CalculatedProduct</span></code></a><ul>
+<li><a class="reference internal" href="#app.service.schemas.CalculatedProduct.model_config"><code class="docutils literal notranslate"><span class="pre">CalculatedProduct.model_config</span></code></a></li>
+<li><a class="reference internal" href="#app.service.schemas.CalculatedProduct.total"><code class="docutils literal notranslate"><span class="pre">CalculatedProduct.total</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#app.service.schemas.PaymentData"><code class="docutils literal notranslate"><span class="pre">PaymentData</span></code></a><ul>
+<li><a class="reference internal" href="#app.service.schemas.PaymentData.amount"><code class="docutils literal notranslate"><span class="pre">PaymentData.amount</span></code></a></li>
+<li><a class="reference internal" href="#app.service.schemas.PaymentData.check_cash_amount"><code class="docutils literal notranslate"><span class="pre">PaymentData.check_cash_amount()</span></code></a></li>
+<li><a class="reference internal" href="#app.service.schemas.PaymentData.model_config"><code class="docutils literal notranslate"><span class="pre">PaymentData.model_config</span></code></a></li>
+<li><a class="reference internal" href="#app.service.schemas.PaymentData.type"><code class="docutils literal notranslate"><span class="pre">PaymentData.type</span></code></a></li>
+<li><a class="reference internal" href="#app.service.schemas.PaymentData.validate_type"><code class="docutils literal notranslate"><span class="pre">PaymentData.validate_type()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#app.service.schemas.ProductBase"><code class="docutils literal notranslate"><span class="pre">ProductBase</span></code></a><ul>
+<li><a class="reference internal" href="#app.service.schemas.ProductBase.model_config"><code class="docutils literal notranslate"><span class="pre">ProductBase.model_config</span></code></a></li>
+<li><a class="reference internal" href="#app.service.schemas.ProductBase.name"><code class="docutils literal notranslate"><span class="pre">ProductBase.name</span></code></a></li>
+<li><a class="reference internal" href="#app.service.schemas.ProductBase.price"><code class="docutils literal notranslate"><span class="pre">ProductBase.price</span></code></a></li>
+<li><a class="reference internal" href="#app.service.schemas.ProductBase.quantity"><code class="docutils literal notranslate"><span class="pre">ProductBase.quantity</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#app.service.schemas.ProductItem"><code class="docutils literal notranslate"><span class="pre">ProductItem</span></code></a><ul>
+<li><a class="reference internal" href="#app.service.schemas.ProductItem.model_config"><code class="docutils literal notranslate"><span class="pre">ProductItem.model_config</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#app.service.schemas.ReceiptCreateSchema"><code class="docutils literal notranslate"><span class="pre">ReceiptCreateSchema</span></code></a><ul>
+<li><a class="reference internal" href="#app.service.schemas.ReceiptCreateSchema.model_config"><code class="docutils literal notranslate"><span class="pre">ReceiptCreateSchema.model_config</span></code></a></li>
+<li><a class="reference internal" href="#app.service.schemas.ReceiptCreateSchema.payment"><code class="docutils literal notranslate"><span class="pre">ReceiptCreateSchema.payment</span></code></a></li>
+<li><a class="reference internal" href="#app.service.schemas.ReceiptCreateSchema.products"><code class="docutils literal notranslate"><span class="pre">ReceiptCreateSchema.products</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#app.service.schemas.ReceiptItemResponse"><code class="docutils literal notranslate"><span class="pre">ReceiptItemResponse</span></code></a><ul>
+<li><a class="reference internal" href="#app.service.schemas.ReceiptItemResponse.Config"><code class="docutils literal notranslate"><span class="pre">ReceiptItemResponse.Config</span></code></a><ul>
+<li><a class="reference internal" href="#app.service.schemas.ReceiptItemResponse.Config.from_attributes"><code class="docutils literal notranslate"><span class="pre">ReceiptItemResponse.Config.from_attributes</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#app.service.schemas.ReceiptItemResponse.model_config"><code class="docutils literal notranslate"><span class="pre">ReceiptItemResponse.model_config</span></code></a></li>
+<li><a class="reference internal" href="#app.service.schemas.ReceiptItemResponse.product_name"><code class="docutils literal notranslate"><span class="pre">ReceiptItemResponse.product_name</span></code></a></li>
+<li><a class="reference internal" href="#app.service.schemas.ReceiptItemResponse.quantity"><code class="docutils literal notranslate"><span class="pre">ReceiptItemResponse.quantity</span></code></a></li>
+<li><a class="reference internal" href="#app.service.schemas.ReceiptItemResponse.unit_price"><code class="docutils literal notranslate"><span class="pre">ReceiptItemResponse.unit_price</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#app.service.schemas.ReceiptListResponse"><code class="docutils literal notranslate"><span class="pre">ReceiptListResponse</span></code></a><ul>
+<li><a class="reference internal" href="#app.service.schemas.ReceiptListResponse.model_config"><code class="docutils literal notranslate"><span class="pre">ReceiptListResponse.model_config</span></code></a></li>
+<li><a class="reference internal" href="#app.service.schemas.ReceiptListResponse.receipts"><code class="docutils literal notranslate"><span class="pre">ReceiptListResponse.receipts</span></code></a></li>
+<li><a class="reference internal" href="#app.service.schemas.ReceiptListResponse.total"><code class="docutils literal notranslate"><span class="pre">ReceiptListResponse.total</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#app.service.schemas.ReceiptResponse"><code class="docutils literal notranslate"><span class="pre">ReceiptResponse</span></code></a><ul>
+<li><a class="reference internal" href="#app.service.schemas.ReceiptResponse.created_at"><code class="docutils literal notranslate"><span class="pre">ReceiptResponse.created_at</span></code></a></li>
+<li><a class="reference internal" href="#app.service.schemas.ReceiptResponse.id"><code class="docutils literal notranslate"><span class="pre">ReceiptResponse.id</span></code></a></li>
+<li><a class="reference internal" href="#app.service.schemas.ReceiptResponse.model_config"><code class="docutils literal notranslate"><span class="pre">ReceiptResponse.model_config</span></code></a></li>
+<li><a class="reference internal" href="#app.service.schemas.ReceiptResponse.payment"><code class="docutils literal notranslate"><span class="pre">ReceiptResponse.payment</span></code></a></li>
+<li><a class="reference internal" href="#app.service.schemas.ReceiptResponse.products"><code class="docutils literal notranslate"><span class="pre">ReceiptResponse.products</span></code></a></li>
+<li><a class="reference internal" href="#app.service.schemas.ReceiptResponse.rest"><code class="docutils literal notranslate"><span class="pre">ReceiptResponse.rest</span></code></a></li>
+<li><a class="reference internal" href="#app.service.schemas.ReceiptResponse.total"><code class="docutils literal notranslate"><span class="pre">ReceiptResponse.total</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#app.service.schemas.ReceiptResponseOut"><code class="docutils literal notranslate"><span class="pre">ReceiptResponseOut</span></code></a><ul>
+<li><a class="reference internal" href="#app.service.schemas.ReceiptResponseOut.Config"><code class="docutils literal notranslate"><span class="pre">ReceiptResponseOut.Config</span></code></a><ul>
+<li><a class="reference internal" href="#app.service.schemas.ReceiptResponseOut.Config.from_attributes"><code class="docutils literal notranslate"><span class="pre">ReceiptResponseOut.Config.from_attributes</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#app.service.schemas.ReceiptResponseOut.created_at"><code class="docutils literal notranslate"><span class="pre">ReceiptResponseOut.created_at</span></code></a></li>
+<li><a class="reference internal" href="#app.service.schemas.ReceiptResponseOut.id"><code class="docutils literal notranslate"><span class="pre">ReceiptResponseOut.id</span></code></a></li>
+<li><a class="reference internal" href="#app.service.schemas.ReceiptResponseOut.model_config"><code class="docutils literal notranslate"><span class="pre">ReceiptResponseOut.model_config</span></code></a></li>
+<li><a class="reference internal" href="#app.service.schemas.ReceiptResponseOut.paid_amount"><code class="docutils literal notranslate"><span class="pre">ReceiptResponseOut.paid_amount</span></code></a></li>
+<li><a class="reference internal" href="#app.service.schemas.ReceiptResponseOut.payment_type"><code class="docutils literal notranslate"><span class="pre">ReceiptResponseOut.payment_type</span></code></a></li>
+<li><a class="reference internal" href="#app.service.schemas.ReceiptResponseOut.products"><code class="docutils literal notranslate"><span class="pre">ReceiptResponseOut.products</span></code></a></li>
+<li><a class="reference internal" href="#app.service.schemas.ReceiptResponseOut.rest"><code class="docutils literal notranslate"><span class="pre">ReceiptResponseOut.rest</span></code></a></li>
+<li><a class="reference internal" href="#app.service.schemas.ReceiptResponseOut.total"><code class="docutils literal notranslate"><span class="pre">ReceiptResponseOut.total</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#app.service.schemas.TokenModel"><code class="docutils literal notranslate"><span class="pre">TokenModel</span></code></a><ul>
+<li><a class="reference internal" href="#app.service.schemas.TokenModel.access_token"><code class="docutils literal notranslate"><span class="pre">TokenModel.access_token</span></code></a></li>
+<li><a class="reference internal" href="#app.service.schemas.TokenModel.model_config"><code class="docutils literal notranslate"><span class="pre">TokenModel.model_config</span></code></a></li>
+<li><a class="reference internal" href="#app.service.schemas.TokenModel.refresh_token"><code class="docutils literal notranslate"><span class="pre">TokenModel.refresh_token</span></code></a></li>
+<li><a class="reference internal" href="#app.service.schemas.TokenModel.token_type"><code class="docutils literal notranslate"><span class="pre">TokenModel.token_type</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#app.service.schemas.UserResponseSchema"><code class="docutils literal notranslate"><span class="pre">UserResponseSchema</span></code></a><ul>
+<li><a class="reference internal" href="#app.service.schemas.UserResponseSchema.id"><code class="docutils literal notranslate"><span class="pre">UserResponseSchema.id</span></code></a></li>
+<li><a class="reference internal" href="#app.service.schemas.UserResponseSchema.login"><code class="docutils literal notranslate"><span class="pre">UserResponseSchema.login</span></code></a></li>
+<li><a class="reference internal" href="#app.service.schemas.UserResponseSchema.model_config"><code class="docutils literal notranslate"><span class="pre">UserResponseSchema.model_config</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#app.service.schemas.UserSchema"><code class="docutils literal notranslate"><span class="pre">UserSchema</span></code></a><ul>
+<li><a class="reference internal" href="#app.service.schemas.UserSchema.login"><code class="docutils literal notranslate"><span class="pre">UserSchema.login</span></code></a></li>
+<li><a class="reference internal" href="#app.service.schemas.UserSchema.model_config"><code class="docutils literal notranslate"><span class="pre">UserSchema.model_config</span></code></a></li>
+<li><a class="reference internal" href="#app.service.schemas.UserSchema.name"><code class="docutils literal notranslate"><span class="pre">UserSchema.name</span></code></a></li>
+<li><a class="reference internal" href="#app.service.schemas.UserSchema.password"><code class="docutils literal notranslate"><span class="pre">UserSchema.password</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_build/html/_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="_build/html/search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="_build/html/genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="_build/html/py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">checkbox-test 0.1.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">checkbox-test documentation</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2025, remover.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    </div>
+  </body>
+</html>

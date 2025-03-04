@@ -19,8 +19,14 @@ from app.service.logger import logger
 
 class Auth:
     """
-    A service class handling authentication and token management,
-    using timezone-aware datetimes in UTC.
+    A service class handling authentication and token management using timezone-aware datetimes in UTC.
+
+    Attributes:
+        pwd_context (CryptContext): A passlib CryptContext for password hashing.
+        SECRET_KEY (str): The secret key used for JWT encoding.
+        ALGORITHM (str): The algorithm used for JWT encoding.
+        oauth2_scheme (OAuth2PasswordBearer): The OAuth2 scheme for token retrieval.
+        cache (redis.Redis): Redis client instance for caching user data.
     """
     pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
     SECRET_KEY: str = config.secret_key
@@ -34,12 +40,28 @@ class Auth:
     )
 
     def verify_password(self, plain_password: str, hashed_password: str) -> bool:
-        """Verifies a plain text password against a hashed password."""
+        """
+        Verifies a plain text password against a hashed password.
+
+        :param plain_password: The plain text password.
+        :type plain_password: str
+        :param hashed_password: The hashed password to compare against.
+        :type hashed_password: str
+        :return: True if the plain password matches the hashed password, False otherwise.
+        :rtype: bool
+        """
         logger.debug("Verifying password.")
         return self.pwd_context.verify(plain_password, hashed_password)
 
     def get_password_hash(self, password: str) -> str:
-        """Hashes a plain text password using bcrypt."""
+        """
+        Hashes a plain text password using bcrypt.
+
+        :param password: The plain text password.
+        :type password: str
+        :return: The hashed password.
+        :rtype: str
+        """
         logger.debug("Generating password hash.")
         return self.pwd_context.hash(password)
 
@@ -49,8 +71,14 @@ class Auth:
         expires_delta: Optional[float] = None
     ) -> str:
         """
-        Creates an access token (JWT) with an optional expiration in seconds.
-        Uses timezone-aware datetime.
+        Creates an access token (JWT) with an optional expiration in seconds using timezone-aware datetime.
+
+        :param data: The data payload to include in the token.
+        :type data: Dict[str, Any]
+        :param expires_delta: Optional expiration time in seconds. Defaults to None.
+        :type expires_delta: Optional[float]
+        :return: The encoded access token.
+        :rtype: str
         """
         logger.debug(f"Creating access token for data: {data}, expires in: {expires_delta} seconds.")
         to_encode = data.copy()
@@ -80,8 +108,14 @@ class Auth:
         expires_delta: Optional[float] = None
     ) -> str:
         """
-        Creates a refresh token (JWT) with an optional expiration in seconds.
-        Uses timezone-aware datetime.
+        Creates a refresh token (JWT) with an optional expiration in seconds using timezone-aware datetime.
+
+        :param data: The data payload to include in the token.
+        :type data: Dict[str, Any]
+        :param expires_delta: Optional expiration time in seconds. Defaults to None.
+        :type expires_delta: Optional[float]
+        :return: The encoded refresh token.
+        :rtype: str
         """
         logger.debug(f"Creating refresh token for data: {data}, expires in: {expires_delta} seconds.")
         to_encode = data.copy()
@@ -108,7 +142,12 @@ class Auth:
     async def get_login_from_token(self, token: str) -> str:
         """
         Extracts the 'sub' (login) from an access or refresh token.
-        Raises HTTPException if the token is invalid.
+
+        :param token: The JWT token.
+        :type token: str
+        :return: The login (sub) extracted from the token.
+        :rtype: str
+        :raises HTTPException: If the token is invalid.
         """
         logger.debug("Decoding token to get login (sub).")
         try:
@@ -124,7 +163,12 @@ class Auth:
     async def decode_refresh_token(self, refresh_token: str) -> str:
         """
         Validates a refresh token and returns the 'sub' (login) if valid.
-        Raises HTTPException if the token is invalid or not a refresh token.
+
+        :param refresh_token: The refresh token to decode.
+        :type refresh_token: str
+        :return: The login (sub) extracted from the token.
+        :rtype: str
+        :raises HTTPException: If the token is invalid or does not have a refresh token scope.
         """
         logger.debug("Decoding and validating refresh token.")
         try:
@@ -149,7 +193,15 @@ class Auth:
         db: AsyncSession = Depends(get_db)
     ) -> Any:
         """
-        Retrieves the current user from the access token or raises an exception if invalid.
+        Retrieves the current user from the access token.
+
+        :param token: The access token provided by the client.
+        :type token: str
+        :param db: The asynchronous database session.
+        :type db: AsyncSession
+        :return: The user object if the token is valid.
+        :rtype: Any
+        :raises HTTPException: If the token is invalid or the user is not found.
         """
         logger.debug("Retrieving current user from token.")
         credentials_exception = HTTPException(

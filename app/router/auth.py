@@ -16,7 +16,7 @@ from app.persistence.connect import get_db
 from app.persistence.repository.auth import get_user_by_login, create_user, update_token
 from app.service import messages
 from app.service.auth import auth_service
-from app.service.shemas import UserResponseSchema, UserSchema, TokenModel
+from app.service.schemas import UserResponseSchema, UserSchema, TokenModel
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
 security = HTTPBearer()
@@ -30,15 +30,13 @@ async def signup(
     """
     Register a new user account.
 
-    Args:
-        body (UserSchema): The user registration data, including login and password.
-        db (AsyncSession): The database session dependency.
-
-    Returns:
-        UserResponseSchema: A schema containing the newly created user data.
-
-    Raises:
-        HTTPException (409): If a user with the given login already exists.
+    :param body: The user registration data, including login and password.
+    :type body: UserSchema
+    :param db: The database session dependency.
+    :type db: AsyncSession
+    :return: A schema containing the newly created user data.
+    :rtype: UserResponseSchema
+    :raises HTTPException: If a user with the given login already exists.
     """
     exist_user = await get_user_by_login(body.login, db)
     if exist_user:
@@ -59,15 +57,13 @@ async def login(
     """
     Authenticate a user and return access/refresh tokens.
 
-    Args:
-        body (OAuth2PasswordRequestForm): Includes 'username' (the user's login) and 'password'.
-        db (AsyncSession): The database session dependency.
-
-    Returns:
-        TokenModel: Contains 'access_token', 'refresh_token', and 'token_type'.
-
-    Raises:
-        HTTPException (401): If the login does not exist or the password is invalid.
+    :param body: Includes 'username' (the user's login) and 'password'.
+    :type body: OAuth2PasswordRequestForm
+    :param db: The database session dependency.
+    :type db: AsyncSession
+    :return: A TokenModel containing 'access_token', 'refresh_token', and 'token_type'.
+    :rtype: TokenModel
+    :raises HTTPException: If the login does not exist or the password is invalid.
     """
     user = await get_user_by_login(body.username, db)
     if user is None:
@@ -98,17 +94,15 @@ async def refresh_token(
     db: AsyncSession = Depends(get_db),
 ):
     """
-    Refresh and return a new access token and refresh token.
+    Refresh and return new access and refresh tokens.
 
-    Args:
-        credentials (HTTPAuthorizationCredentials): The current HTTP authorization credentials (which should include the refresh token).
-        db (AsyncSession): The database session dependency.
-
-    Returns:
-        TokenModel: Contains a new 'access_token', a new 'refresh_token', and 'token_type'.
-
-    Raises:
-        HTTPException (401): If the refresh token is invalid or does not match the user's stored refresh token.
+    :param credentials: The current HTTP authorization credentials (should include the refresh token).
+    :type credentials: HTTPAuthorizationCredentials
+    :param db: The database session dependency.
+    :type db: AsyncSession
+    :return: A TokenModel containing a new 'access_token', a new 'refresh_token', and 'token_type'.
+    :rtype: TokenModel
+    :raises HTTPException: If the refresh token is invalid or does not match the user's stored refresh token.
     """
     token = credentials.credentials
     login = await auth_service.decode_refresh_token(token)

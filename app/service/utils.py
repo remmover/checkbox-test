@@ -10,7 +10,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.persistence.models import PaymentType, Receipt
 from app.persistence.repository.receipts import fetch_receipt_by_id_public
 from app.service import messages
-from app.service.shemas import CalculatedProduct, ReceiptCreateSchema, ReceiptResponseOut, ReceiptItemResponse
+from app.service.schemas import CalculatedProduct, ReceiptCreateSchema, ReceiptResponseOut, ReceiptItemResponse
 
 TEXT_RECEIPT_DIR = "/app/static/text_receipts"
 QR_CODE_DIR = "/app/static/qr_codes"
@@ -20,15 +20,12 @@ def generate_receipt_text(receipt: Receipt, line_length: int) -> str:
     """
     Generates a formatted textual representation of a receipt.
 
-    Args:
-        receipt (Receipt): The receipt object containing items, payment type, and totals.
-        line_length (int): Number of characters per line in the generated text.
-
-    Returns:
-        str: A multiline string representing the formatted receipt text.
-
-    Raises:
-        None: This function does not raise exceptions, but it can propagate others implicitly.
+    :param receipt: The receipt object containing items, payment type, and totals.
+    :type receipt: Receipt
+    :param line_length: Number of characters per line in the generated text.
+    :type line_length: int
+    :return: A multiline string representing the formatted receipt text.
+    :rtype: str
     """
     seller_name = "ФОП Джонсонюк Борис"
     separator = "=" * line_length
@@ -87,13 +84,12 @@ def generate_qr_code(url: str, file_path: str):
     """
     Generates a QR code from the provided URL and saves it to a file.
 
-    Args:
-        url (str): The URL to be encoded in the QR code.
-        file_path (str): The path where the QR code image will be saved.
-
-    Raises:
-        IOError: If there's an issue writing the QR code to the file system.
-        Exception: Any unexpected error encountered by the qrcode library.
+    :param url: The URL to be encoded in the QR code.
+    :type url: str
+    :param file_path: The path where the QR code image will be saved.
+    :type file_path: str
+    :raises IOError: If there's an issue writing the QR code to the file system.
+    :raises Exception: Any unexpected error encountered by the qrcode library.
     """
     qr = qrcode.make(url)
     qr.save(file_path)
@@ -103,15 +99,11 @@ def calculate_receipt_details(receipt_request: ReceiptCreateSchema) -> Tuple[Lis
     """
     Calculates details for a receipt, such as total price per product, overall total, and rest for cash payments.
 
-    Args:
-        receipt_request (ReceiptCreateSchema): The receipt data including products and payment details.
-
-    Returns:
-        Tuple[List[CalculatedProduct], Decimal, Decimal]:
-            A tuple of (list of CalculatedProduct, total sum, rest).
-
-    Raises:
-        HTTPException(400): If the cash amount provided is insufficient (rest would be negative).
+    :param receipt_request: The receipt data including products and payment details.
+    :type receipt_request: ReceiptCreateSchema
+    :return: A tuple containing a list of CalculatedProduct, the total sum, and the rest.
+    :rtype: Tuple[List[CalculatedProduct], Decimal, Decimal]
+    :raises HTTPException: If the cash amount provided is insufficient (rest would be negative).
     """
     total_sum = Decimal("0.00")
     calculated_products: List[CalculatedProduct] = []
@@ -143,18 +135,16 @@ def get_paid_and_rest(
     paid_amount: Decimal
 ) -> Tuple[Decimal, Decimal]:
     """
-    Compute how much was actually paid and how much remains (rest).
+    Computes how much was actually paid and how much remains (rest).
 
-    Args:
-        payment_type (PaymentType): The type of payment (card or cash).
-        total_amount (Decimal): The total amount of the receipt.
-        paid_amount (Decimal): The amount actually paid for the receipt.
-
-    Returns:
-        Tuple[Decimal, Decimal]: A tuple of (paid_amount, rest).
-
-    Raises:
-        None: This function does not raise exceptions, but can propagate others implicitly.
+    :param payment_type: The type of payment (card or cash).
+    :type payment_type: PaymentType
+    :param total_amount: The total amount of the receipt.
+    :type total_amount: Decimal
+    :param paid_amount: The amount actually paid for the receipt.
+    :type paid_amount: Decimal
+    :return: A tuple of (paid_amount, rest).
+    :rtype: Tuple[Decimal, Decimal]
     """
     if payment_type == PaymentType.card:
         # For card, assume full payment has been made
@@ -166,16 +156,12 @@ def get_paid_and_rest(
 
 def build_receipt_response_out(receipt: Receipt) -> ReceiptResponseOut:
     """
-    Convert a receipt ORM object into a ReceiptResponseOut schema instance.
+    Converts a receipt ORM object into a ReceiptResponseOut schema instance.
 
-    Args:
-        receipt (Receipt): A receipt ORM object, including related items and payment details.
-
-    Returns:
-        ReceiptResponseOut: The Pydantic response schema for the receipt.
-
-    Raises:
-        None: This function does not raise exceptions, but can propagate others implicitly.
+    :param receipt: A receipt ORM object, including related items and payment details.
+    :type receipt: Receipt
+    :return: The Pydantic response schema for the receipt.
+    :rtype: ReceiptResponseOut
     """
     paid_amount, rest = get_paid_and_rest(
         payment_type=receipt.payment_type,
@@ -203,21 +189,20 @@ async def prepare_receipt_files(
     line_length: int
 ) -> Tuple[str, str]:
     """
-    Fetches a receipt by its public ID. If the corresponding text/QR code files
-    do not exist, they are generated, paths are stored in the DB, and finally returned.
+    Fetches a receipt by its public ID. If the corresponding text and QR code files do not exist,
+    they are generated, stored in the database, and then returned.
 
-    Args:
-        db (AsyncSession): The async database session.
-        receipt_id (UUID): The public identifier of the receipt.
-        line_length (int): Number of characters per line when generating the text file.
-
-    Returns:
-        Tuple[str, str]: A tuple containing (text_path, qr_path).
-
-    Raises:
-        HTTPException(404): If the receipt doesn't exist.
-        IOError: If generating or writing the files fails.
-        Exception: Rolls back changes if an unexpected error occurs while updating DB.
+    :param db: The asynchronous database session.
+    :type db: AsyncSession
+    :param receipt_id: The public identifier of the receipt.
+    :type receipt_id: UUID
+    :param line_length: Number of characters per line when generating the text file.
+    :type line_length: int
+    :return: A tuple containing the text file path and the QR code file path.
+    :rtype: Tuple[str, str]
+    :raises HTTPException: If the receipt does not exist.
+    :raises IOError: If generating or writing the files fails.
+    :raises Exception: For any unexpected error encountered while updating the database.
     """
     receipt = await fetch_receipt_by_id_public(db, receipt_id)
     if not receipt:
