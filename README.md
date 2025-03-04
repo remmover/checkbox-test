@@ -8,6 +8,7 @@ This repository contains the source code for the Checkbox Test Service. The serv
 
 - **Docker**: Ensure that Docker is installed on your system. You can download it from [Docker's official website](https://www.docker.com/get-started).
 - **Docker Compose**: Verify that Docker Compose is installed. You can find installation instructions on the [Docker Compose documentation page](https://docs.docker.com/compose/install/).
+- **Poetry**: The project dependencies are managed with Poetry. You can install Poetry from [its official website](https://python-poetry.org/).
 
 ## Setup and Installation
 
@@ -42,6 +43,14 @@ This repository contains the source code for the Checkbox Test Service. The serv
    - **Edit the `.env` File**
 
      Open the `.env` file in a text editor and set the necessary environment variables.
+
+4. **Install Dependencies**
+
+   The project dependencies are managed with Poetry. To install them, simply run:
+
+   ```bash
+   poetry install
+   ```
 
 ## Building and Running the Service
 
