@@ -6,22 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>checkbox-test documentation &#8212; checkbox-test 0.1.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="_build/html/_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="_build/html/_static/nature.css?v=279e0f84" />
-    <script src="_build/html/_static/documentation_options.js?v=e390f2d4"></script>
-    <script src="_build/html/_static/doctools.js?v=9bcbadda"></script>
-    <script src="_build/html/_static/sphinx_highlight.js?v=dc90522c"></script>
-    <link rel="index" title="Index" href="_build/html/genindex.html" />
-    <link rel="search" title="Search" href="_build/html/search.html" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/nature.css?v=279e0f84" />
+    <script src="_static/documentation_options.js?v=e390f2d4"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="Related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="_build/html/genindex.html" title="General Index"
+          <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="_build/html/py-modindex.html" title="Python Module Index"
+          <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="#">checkbox-test 0.1.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">checkbox-test documentation</a></li> 
@@ -327,35 +327,6 @@ documentation for details.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="app.router.receipts.download_receipt_file">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.router.receipts.</span></span><span class="sig-name descname"><span class="pre">download_receipt_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">receipt_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Query(PydanticUndefined)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Query(40)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AsyncSession</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.router.receipts.download_receipt_file" title="Link to this definition">¶</a></dt>
-<dd><p>Download a text or QR file associated with a public receipt.</p>
-<p>If the files do not exist, they are generated, stored, and then returned.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>receipt_id</strong> (<em>UUID</em>) -- The unique identifier of the public receipt.</p></li>
-<li><p><strong>file_type</strong> (<em>str</em>) -- Specifies which file to download ('txt' or 'qr').</p></li>
-<li><p><strong>line_length</strong> (<em>int</em>) -- Number of characters per line in the generated text file.</p></li>
-<li><p><strong>db</strong> (<em>AsyncSession</em>) -- The database session dependency.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A FileResponse containing either a .txt or .png (QR) file.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>FileResponse</p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>HTTPException</strong> -- If file_type is invalid, file is not found, or database errors occur.</p></li>
-<li><p><strong>Exception</strong> -- For any unexpected error during file preparation or retrieval.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="app.router.receipts.get_receipt">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.router.receipts.</span></span><span class="sig-name descname"><span class="pre">get_receipt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">receipt_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">User</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_current_user)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AsyncSession</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.router.receipts.get_receipt" title="Link to this definition">¶</a></dt>
 <dd><p>Retrieve a specific receipt by its unique ID.</p>
@@ -409,6 +380,35 @@ documentation for details.</p>
 <dd class="field-even"><ul class="simple">
 <li><p><strong>HTTPException</strong> -- If database or validation errors occur.</p></li>
 <li><p><strong>Exception</strong> -- For any unexpected error during receipt retrieval.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.router.receipts.public_receipt">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.router.receipts.</span></span><span class="sig-name descname"><span class="pre">public_receipt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">receipt_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Query(PydanticUndefined)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Query(40)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AsyncSession</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.router.receipts.public_receipt" title="Link to this definition">¶</a></dt>
+<dd><p>Download a text or QR file associated with a public receipt.</p>
+<p>If the files do not exist, they are generated, stored, and then returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>receipt_id</strong> (<em>UUID</em>) -- The unique identifier of the public receipt.</p></li>
+<li><p><strong>file_type</strong> (<em>str</em>) -- Specifies which file to download ('txt' or 'qr').</p></li>
+<li><p><strong>line_length</strong> (<em>int</em>) -- Number of characters per line in the generated text file.</p></li>
+<li><p><strong>db</strong> (<em>AsyncSession</em>) -- The database session dependency.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A FileResponse containing either a .txt or .png (QR) file.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>FileResponse</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>HTTPException</strong> -- If file_type is invalid, file is not found, or database errors occur.</p></li>
+<li><p><strong>Exception</strong> -- For any unexpected error during file preparation or retrieval.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1219,9 +1219,9 @@ names from the base product for clarity.</p>
 <section id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading">¶</a></h1>
 <ul class="simple">
-<li><p><a class="reference internal" href="_build/html/genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="_build/html/py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
-<li><p><a class="reference internal" href="_build/html/search.html"><span class="std std-ref">Search Page</span></a></p></li>
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
 </ul>
 </section>
 
@@ -1258,9 +1258,9 @@ names from the base product for clarity.</p>
 </li>
 <li><a class="reference internal" href="#module-app.router.receipts">REST API routes Receipts</a><ul>
 <li><a class="reference internal" href="#app.router.receipts.create_receipt"><code class="docutils literal notranslate"><span class="pre">create_receipt()</span></code></a></li>
-<li><a class="reference internal" href="#app.router.receipts.download_receipt_file"><code class="docutils literal notranslate"><span class="pre">download_receipt_file()</span></code></a></li>
 <li><a class="reference internal" href="#app.router.receipts.get_receipt"><code class="docutils literal notranslate"><span class="pre">get_receipt()</span></code></a></li>
 <li><a class="reference internal" href="#app.router.receipts.list_receipts"><code class="docutils literal notranslate"><span class="pre">list_receipts()</span></code></a></li>
+<li><a class="reference internal" href="#app.router.receipts.public_receipt"><code class="docutils literal notranslate"><span class="pre">public_receipt()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#rest-api-service-authentication">REST API service Authentication</a><ul>
@@ -1392,14 +1392,14 @@ names from the base product for clarity.</p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_build/html/_sources/index.rst.txt"
+      <li><a href="_sources/index.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <search id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
-    <form class="search" action="_build/html/search.html" method="get">
+    <form class="search" action="search.html" method="get">
       <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
@@ -1414,10 +1414,10 @@ names from the base product for clarity.</p>
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="_build/html/genindex.html" title="General Index"
+          <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="_build/html/py-modindex.html" title="Python Module Index"
+          <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="nav-item nav-item-0"><a href="#">checkbox-test 0.1.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">checkbox-test documentation</a></li> 
